@@ -1,8 +1,9 @@
 <?php
-class Goadvance01
+class rest
 {
     //コンストラクタ
     public function __construct( $player ){
-        $player->place += 1; 
+        $player->rest++;
+        echo "1回休みです" . PHP_EOL;
     }
 }

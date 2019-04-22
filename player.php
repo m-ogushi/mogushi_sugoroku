@@ -6,5 +6,6 @@ class Player
     {
         $this->name = $player;
         $this->place = 0;
+        $this->rest = 0;
     }
 }

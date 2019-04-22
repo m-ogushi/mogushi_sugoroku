@@ -6,12 +6,12 @@ class Board
         $file = new SplFileObject( $csv ); 
         $file->setFlags(SplFileObject::READ_CSV); 
         foreach ($file as $line) {
-            $map[] = $line;
+            $map[] = $line[0];
             if( $line[0] == "goal" )
             {
                 break;
             }
         }
-        var_dump( $map ); 
+        $this->map = $map; 
     }
 }
