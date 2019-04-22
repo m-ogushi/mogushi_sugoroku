@@ -68,28 +68,28 @@ class Game
 
         if( $player->place == $board->goadvance01 )
         {
-            new Goadvance( $player, 1 );
+            new Goadvance01( $player );
 	} 
         if( $player->place == $board->goadvance02 )
         {
-            new Goadvance( $player, 2 );
+            new Goadvance02( $player );
 	} 
         if( $player->place == $board->goadvance03 )
         {
-            new Goadvance( $player, 3 );
+            new Goadvance03( $player );
 	} 
 
         if( $player->place == $board->goback01 )
         {
-            new Goback( $player, 1 );
+            new Goback01( $player );
 	} 
         if( $player->place == $board->goback02 )
         {
-            new Goback( $player, 2 );
+            new Goback02( $player );
 	} 
         if( $player->place == $board->goback03 )
         {
-            new Goback( $player, 3 );
+            new Goback03( $player );
 	} 
     }
  
