@@ -1,5 +1,5 @@
 <?php
-class Goadvance01
+class Check
 {
     private $game;
     //コンストラクタ
@@ -8,9 +8,7 @@ class Goadvance01
     }
 
     public function player(){
-        $game = $this->game;
-        $game->player[$game->turn_player]->place += 1;
-        echo "1マス進みました";
+
     }
 
     public function turn_end(){

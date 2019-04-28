@@ -2,9 +2,9 @@
 class Dice
 {
     //コンストラクタ
-    public function __construct()
+    public function __construct( $planes )
     {
         $this->min = 1;
-        $this->max = 6;
+        $this->max = $planes;
     }
 }
