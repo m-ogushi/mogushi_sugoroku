@@ -10,7 +10,7 @@ class Gostart
     public function player(){
         $game = $this->game;
         $game->player[$game->turn_player]->place = 0;
-        echo "スタートに戻りました";
+        $game->view->append( "text", "スタートに戻りました" );
     }
 
     public function turn_end(){

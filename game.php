@@ -20,6 +20,7 @@ class Game
     {
         $this->player[] = $player;    
     }
+
     public function setDice( $dice )
     {
         $this->dice[] = $dice;
@@ -35,33 +36,34 @@ class Game
         $this->turn = 1;
         $this->match();
     }
+
     public function match()
     {
         
         while ( true )
         {
-            echo PHP_EOL . $this->turn . "ターン目です";
+            $this->view->append( "title", $this->turn . "ターン目です" );
             $this->trun_event = [];
             for ( $i = 0; $i < count( $this->player ); $i++ )
             {
-                echo PHP_EOL . $this->player[$i]->name . 'の番です';
+                $this->view->append( "title", $this->player[$i]->name . "の番です" );
                 $this->turn_player = $i;
                 //「休み」の判定
                 if ( $this->player[$i]->rest > 0 )
                 {
                     $this->player[$i]->rest--;
-                    echo $this->player[$i]->name . 'は休みです';
+                    $this->view->append( "text", $this->player[$i]->name . "は休みです" );
                 }
                 else {
                     //チェックポイントの判定
                     if ( $this->player[$i]->check_in == TRUE ) {
-                        echo 'チェックポイントにいます';
+                        $this->view->append( "text", "チェックポイントにいます" );
                         if ( in_array( mt_rand( $this->dice[0]->min, $this->dice[0]->max ), array(1, 2) ) ) {
-                            echo 'これから進めます！';
+                            $this->view->append( "text", "これから進めます！" );
                             $this->player[$i]->check_in = FALSE;
                             array_shift($this->player[$i]->not_checked );
                         }else{
-                            echo 'まだ進めません';
+                            $this->view->append( "text", "まだ進めません" );
                         }
 
                     }
@@ -74,7 +76,7 @@ class Game
 
                         //チェックマス判定
                         $this->check();
-                        echo $this->player[$i]->place . "マス目にいます";
+                        $this->view->append( "text", $this->player[$i]->place . "マス目にいます" );
 
                         //イベント(プレイヤー毎)
                         $this->event_type = "player";
@@ -91,7 +93,8 @@ class Game
                 }
             }
 
-            echo PHP_EOL . 'ターン終わり ';
+            $this->view->append( "title", "ターン終わり" );
+
             //イベント(ターンの終わり)
             $this->event_type = "turn_end";
             $this->event();
@@ -139,7 +142,7 @@ class Game
                 $next_check_place = min( $this->player[$i]->not_checked );
                 if ( $next_check_place <= $this->player[$i]->place ) {
                     if ( $next_check_place < $this->player[$i]->place ){
-                        echo $this->player[$i]->name . 'さんは' . $next_check_place . 'マス目のチェックポイントでとまります';
+                        $this->view->append( "text", $this->player[$i]->name . 'さんは' . $next_check_place . 'マス目のチェックポイントでとまります' );
                     }
                     $this->player[$i]->check_in = TRUE;
                     $this->player[$i]->place = $next_check_place;
@@ -153,7 +156,8 @@ class Game
  
     public function end( $name )
     {
-        echo $name . "のかち!" . PHP_EOL;
+        $this->view->append( "title", $name. "のかち!" );
+        $this->view->html();
         exit;
     }
 }

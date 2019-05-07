@@ -19,7 +19,7 @@ class Replace
 
         $game->player[$game->turn_player]->place = $oppoment_place;
         $game->player[$replace_oppoment]->place = $my_place;
-        echo $game->player[$game->turn_player]->name . "さんと" . $game->player[$replace_oppoment]->name . "さんが入れ替わりました";
+        $game->view->append( "text", $game->player[$game->turn_player]->name . "さんと" . $game->player[$replace_oppoment]->name . "さんが入れ替わりました" );
     }
 
     public function turn_end(){

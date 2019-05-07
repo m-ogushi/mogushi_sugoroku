@@ -10,7 +10,7 @@ class Goadvance03
     public function player(){
         $game = $this->game;
         $game->player[$game->turn_player]->place += 3;
-        echo "3マス進みました";
+        $game->view->append( "text", "3マス進みました" );
     }
 
     public function turn_end(){

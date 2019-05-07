@@ -16,7 +16,7 @@ class Diceprogress
         }
 
         $game->player[$game->turn_player]->place += $steps;
-        echo $steps . "マス進みます";
+        $game->view->append( "text", $steps . "マス進みます" );
     }
 
     public function turn_end(){

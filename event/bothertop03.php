@@ -16,7 +16,7 @@ class Bothertop03
         $user_id = $Class->get_top_player();
         if ( $user_id ){
             $game->player[$user_id]->place -= 3;
-            echo "トップの" . $game->player[$user_id]->name . "が3マス戻りました";
+            $game->view->append( "text", "トップの" . $game->player[$user_id]->name . "が3マス戻りました" );
         }
     }
 }

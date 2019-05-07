@@ -10,7 +10,7 @@ class Goback03
     public function player(){
         $game = $this->game;
         $game->player[$game->turn_player]->place -= 3;
-        echo "3マス戻りました";
+        $game->view->append( "text", "3マス戻りました" );
     }
 
     public function turn_end(){

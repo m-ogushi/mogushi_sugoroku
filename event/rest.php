@@ -10,7 +10,7 @@ class Rest
     public function player(){
         $game = $this->game;
         $game->player[$game->turn_player]->rest++;
-        echo "1回休みです";
+        $game->view->append( "text", "1回休みです" );
     }
 
     public function turn_end(){

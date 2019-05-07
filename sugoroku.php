@@ -22,6 +22,7 @@ require "event/bothertop03.php";
 require "event/check.php";
 require "event/goal.php";
 require "event/eventmethod.php";
+require "view/view.php";
 
 $game = Game::getInstance();
 $game->setBoard(new Board('data/board.csv'));
@@ -29,5 +30,6 @@ $game->addPlayer(new Player('Taro',$game->board ));
 $game->addPlayer(new Player('Jiro',$game->board ));
 $game->setDice(new Dice( 8 ));
 $game->setDice(new Dice( 6 ));
+$game->view = View::getInstance();
 $game->start();
 ?>
