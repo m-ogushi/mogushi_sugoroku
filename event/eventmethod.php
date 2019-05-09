@@ -17,8 +17,7 @@ class Eventmethod
 
         if ( $player_place[0] != $player_place[1] ){
             return $player_id[0];
-        }
-        else{
+        } else {
             return;
         }
     }
@@ -33,8 +32,7 @@ class Eventmethod
 
         if ( $player_place[0] != $player_place[1] ){
             return $player_id[0];
-        }
-        else{
+        } else {
             return;
         }
     }

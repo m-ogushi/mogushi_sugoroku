@@ -9,12 +9,10 @@ class Diceprogress
     public function player(){
         $game = $this->game;
         $steps = 0;
-        for ( $i = 0; $i < count( $game->dice ); $i++ )
-        {
+        for ( $i = 0; $i < count( $game->dice ); $i++ ){
             $step = mt_rand( $game->dice[$i]->min, $game->dice[$i]->max );
             $steps += $step;
         }
-
         $game->player[$game->turn_player]->place += $steps;
         $game->view->append( "text", $steps . "マス進みます" );
     }

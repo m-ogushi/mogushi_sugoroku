@@ -4,11 +4,10 @@ class Html
     //コンストラクタ
     public function __construct( $contents )
     {
-        $this->contents = $contents;
-        $html = include( "html_content.php" );
-    }
-
-    public function show(){
-
+        ob_start();
+        require( "html_content.php" );
+        $this->html = ob_get_contents();
+        ob_end_clean();
+        return $this->html;
     }
 }

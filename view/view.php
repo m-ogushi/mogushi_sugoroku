@@ -20,6 +20,7 @@ class View
 
     public function html()
     {
-        new Html( $this->contents );
+        $this->html = new Html( $this->contents );
+        return $this->html;
     }
 }
