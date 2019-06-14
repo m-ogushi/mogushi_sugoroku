@@ -1,5 +1,5 @@
 <?php
-class Rest
+class Rest implements Event
 {
     private $game;
     //コンストラクタ

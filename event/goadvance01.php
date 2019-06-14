@@ -1,5 +1,5 @@
 <?php
-class Goadvance01
+class Goadvance01 implements Event
 {
     private $game;
     //コンストラクタ

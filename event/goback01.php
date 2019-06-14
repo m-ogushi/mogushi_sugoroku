@@ -1,5 +1,5 @@
 <?php
-class Goback01
+class Goback01 implements Event
 {
     private $game;
     //コンストラクタ

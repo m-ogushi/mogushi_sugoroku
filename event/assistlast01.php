@@ -1,5 +1,5 @@
 <?php
-class Assistlast01
+class Assistlast01 implements Event
 {
     //コンストラクタ
     public function __construct( $game ){
