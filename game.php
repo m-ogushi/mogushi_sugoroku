@@ -77,10 +77,10 @@ class Game
 
                         //イベント(プレイヤー毎)
                         $this->event_type = "player";
-                        $this->event();
+                        EventOccur::index($this);
 
                         //チェックマス判定
-                        $this->check();
+                        $this->check($this);
 
                         //ゴールの判定
                         if ( $this->player[$i]->place >= count( $this->board->map ) ){
@@ -94,41 +94,12 @@ class Game
 
             //イベント(ターンの終わり)
             $this->event_type = "turn_end";
-            $this->event();
+            EventOccur::index($this);
 
             //チェックマス判定
             $this->check();
             $this->turn++;
         }
-    }
-
-    public function event()
-    {
-        $event_type = $this->event_type;
-
-        switch ( $event_type ){
-            case "player":
-                $event_name = $this->board->map[$this->player[$this->turn_player]->place];
-                if ( !empty( $event_name ) ){
-                    $Class = new $event_name( $this );
-                    $Class->$event_type();
-                }
-                break;
-            case "turn_end":
-                for ( $i = 0; $i < count( $this->player ); $i++ ){
-                    $event_names[] = $this->board->map[$this->player[$i]->place];
-                }
-                foreach ( $event_names as $event_name ){
-                    if ( !empty( $event_name ) ){
-                        $Class = new $event_name( $this );
-                        $Class->$event_type();
-                    }
-                }
-                break;
-            default:
-                break;
-        }
-
     }
 
     public function check()

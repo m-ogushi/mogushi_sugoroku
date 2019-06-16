@@ -1,5 +1,5 @@
 <?php
-class Goal implements Event
+class Goal implements EventMethod
 {
     //コンストラクタ
     public function __construct( $game ){

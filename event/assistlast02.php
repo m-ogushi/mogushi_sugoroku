@@ -1,5 +1,5 @@
 <?php
-class Assistlast02 implements Event
+class Assistlast02 implements EventMethod
 {
     //コンストラクタ
     public function __construct( $game ){
@@ -12,7 +12,7 @@ class Assistlast02 implements Event
 
     public function turn_end(){
         $game = $this->game;
-        $Class = new eventmethod( $game );
+        $Class = new EventFunction( $game );
         $user_id = $Class->get_last_player();
         if ( $user_id ){
             $game->player[$user_id]->place += 2;

@@ -1,5 +1,5 @@
 <?php
-class Check implements Event
+class Check implements EventMethod
 {
     private $game;
     //コンストラクタ

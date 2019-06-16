@@ -4,7 +4,8 @@ require "board.php";
 require "player.php";
 require "dice.php";
 require "diceprogress.php";
-require "event.php";
+require "eventoccur.php";
+require "eventmethod.php";
 require "event/goadvance01.php";
 require "event/goadvance02.php";
 require "event/goadvance03.php";
@@ -22,7 +23,7 @@ require "event/bothertop02.php";
 require "event/bothertop03.php";
 require "event/check.php";
 require "event/goal.php";
-require "event/eventmethod.php";
+require "event/eventfunction.php";
 require "view/view.php";
 
 $game = Game::getInstance();

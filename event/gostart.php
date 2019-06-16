@@ -1,5 +1,5 @@
 <?php
-class Gostart implements Event
+class Gostart implements EventMethod
 {
     private $game;
     //コンストラクタ

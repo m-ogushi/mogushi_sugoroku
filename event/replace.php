@@ -1,5 +1,5 @@
 <?php
-class Replace implements Event
+class Replace implements EventMethod
 {
     private $game;
     //コンストラクタ

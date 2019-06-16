@@ -1,5 +1,5 @@
 <?php
-class Eventmethod
+class EventFunction
 {
     private $game;
     //コンストラクタ
