@@ -6,6 +6,7 @@ require "dice.php";
 require "diceprogress.php";
 require "eventoccur.php";
 require "eventmethod.php";
+require "stopchecksquare.php";
 require "event/goadvance01.php";
 require "event/goadvance02.php";
 require "event/goadvance03.php";

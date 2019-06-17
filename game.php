@@ -72,7 +72,7 @@ class Game
                         $Class->player();
 
                         //チェックマス判定
-                        $this->check();
+                        StopCheckSquare::index($this);
                         $this->view->append( "text", $this->player[$i]->place . "マス目にいます" );
 
                         //イベント(プレイヤー毎)
@@ -80,7 +80,7 @@ class Game
                         EventOccur::index($this);
 
                         //チェックマス判定
-                        $this->check($this);
+                        StopCheckSquare::index($this);
 
                         //ゴールの判定
                         if ( $this->player[$i]->place >= count( $this->board->map ) ){
@@ -97,29 +97,11 @@ class Game
             EventOccur::index($this);
 
             //チェックマス判定
-            $this->check();
+            StopCheckSquare::index($this);
             $this->turn++;
         }
     }
 
-    public function check()
-    {
-        for ( $i = 0; $i < count( $this->player ); $i++ ){
-            if ( !empty( $this->player[$i]->not_checked ) ){
-                $next_check_place = min( $this->player[$i]->not_checked );
-                if ( $next_check_place <= $this->player[$i]->place ){
-                    if ( $next_check_place < $this->player[$i]->place ){
-                        $this->view->append( "text", $this->player[$i]->name . 'さんは' . $next_check_place . 'マス目のチェックポイントでとまります' );
-                    }
-                    $this->player[$i]->check_in = TRUE;
-                    $this->player[$i]->place = $next_check_place;
-                } else {
-                    $this->player[$i]->check_in = FALSE;
-                }
-            }
-        }
-    }
- 
     public function end( $name )
     {
         $this->view->append( "title", $name. "のかち!" );
