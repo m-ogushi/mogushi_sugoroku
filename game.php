@@ -44,14 +44,15 @@ class Game
         {
             $this->view->append( "title", $this->turn . "ターン目です" );
             $this->trun_event = [];
-            for ( $i = 0; $i < count( $this->player ); $i++ ){
+            for ( $i = 0; $i < count( $this->player ); $i++ ) {
                 $this->view->append( "title", $this->player[$i]->name . "の番です" );
                 $this->turn_player = $i;
-                $this->advance = 0;
+                $this->advance = FALSE;
 
-                doBeforeRoll::checkrest($this);
+                $doBeforeRoll = new doBeforeRoll();
+                $doBeforeRoll->checkrest($this);
 
-                if ( $this->advance == 1 ) {
+                if ( $this->advance == TRUE ) {
                     //サイコロを振って進む
                     $name = "diceprogress";
                     $Class = new $name($this);
@@ -61,7 +62,7 @@ class Game
                     $this->view->append( "text", $this->player[$i]->place . "マス目にいます" );
                 }
 
-                if ( $this->advance == 1 ) {
+                if ( $this->advance == TRUE ) {
                     //イベント(プレイヤー毎)
                     $this->event_type = "player";
                     $EventOccur = new EventOccur();

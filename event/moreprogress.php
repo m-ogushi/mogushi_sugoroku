@@ -1,5 +1,5 @@
 <?php
-class diceprogress
+class Moreprogress
 {
     //コンストラクタ
     public function __construct( $game ){

@@ -2,7 +2,7 @@
 
 class doBeforeRoll
 {
-    public static function checkrest($game)
+    public function checkrest($game)
     {
         if ($game->player[$game->turn_player]->rest > 0) {
             $game->player[$game->turn_player]->rest--;
@@ -23,7 +23,7 @@ class doBeforeRoll
             return;
         }
 
-        $game->advance = 1;
+        $game->advance = TRUE;
 
         return;
     }
