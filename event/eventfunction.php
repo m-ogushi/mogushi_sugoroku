@@ -9,6 +9,8 @@ class EventFunction
 
     public function get_top_player(){
         $game = $this->game;
+        $player_place = [];
+        $player_id = [];
         for ( $i = 0; $i < count( $game->player ); $i++ ){
             $player_place[] += $game->player[$i]->place;
             $player_id[] = $i;
@@ -24,6 +26,8 @@ class EventFunction
 
     public function get_last_player(){
         $game = $this->game;
+        $player_place = [];
+        $player_id = [];
         for ( $i = 0; $i < count( $game->player ); $i++ ){
             $player_place[] += $game->player[$i]->place;
             $player_id[] = $i;

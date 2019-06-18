@@ -2,7 +2,7 @@
 
 class StopCheckSquare
 {
-    public static function index($game)
+    public static function backIfNotChecked($game)
     {
         for ($i = 0; $i < count($game->player); $i++) {
             if (! empty($game->player[$i]->not_checked)) {

@@ -10,6 +10,10 @@ class EventOccur
 
     public function index($game)
     {
+        if( count( $game->board->map ) < $game->player[$game->turn_player]->place ){
+            return;
+        }
+
         $event_type = $game->event_type;
 
         switch ($event_type) {
