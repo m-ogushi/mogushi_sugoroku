@@ -7,6 +7,7 @@ require "diceprogress.php";
 require "eventoccur.php";
 require "eventmethod.php";
 require "stopchecksquare.php";
+require "dobeforeroll.php";
 require "playergoal.php";
 require "event/goadvance01.php";
 require "event/goadvance02.php";
