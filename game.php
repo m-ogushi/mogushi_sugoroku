@@ -52,15 +52,8 @@ class Game
                 $doBeforeRoll = new doBeforeRoll();
                 $doBeforeRoll->checkrest($this);
 
-                if ( $this->advance == TRUE ) {
-                    //サイコロを振って進む
-                    $name = "diceprogress";
-                    $Class = new $name($this);
-                    $Class->player();
-
-                    StopCheckSquare::stayIfNotChecked($this);
-                    $this->view->append( "text", $this->player[$i]->place . "マス目にいます" );
-                }
+                $diceProgress = new diceprogress($this);
+                $diceProgress->roll();
 
                 if ( $this->advance == TRUE ) {
                     //イベント(プレイヤー毎)

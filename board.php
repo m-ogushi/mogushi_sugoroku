@@ -8,6 +8,7 @@ class Board
         $i = 0;
         foreach ($file as $line){
             $map[] = $line[0];
+            $check_place = [];
 
             if ( $line[0] == "check" ){
                 $check_place[] = $i;
