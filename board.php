@@ -6,9 +6,9 @@ class Board
         $file = new SplFileObject( $csv ); 
         $file->setFlags(SplFileObject::READ_CSV);
         $i = 0;
+        $check_place = [];
         foreach ($file as $line){
             $map[] = $line[0];
-            $check_place = [];
 
             if ( $line[0] == "check" ){
                 $check_place[] = $i;

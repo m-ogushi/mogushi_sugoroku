@@ -2,15 +2,17 @@
 
 class StopCheckSquare
 {
+    //TODO こことか、staticによびだしているのは問題なので買える
     public static function stayIfNotChecked($game)
     {
         for ($i = 0; $i < count($game->player); $i++) {
             if (! empty($game->player[$i]->not_checked)) {
                 $next_check_place = min($game->player[$i]->not_checked);
                 if ($next_check_place <= $game->player[$i]->place) {
-                    if ($next_check_place < $game->player[$i]->place) {
-                        $game->view->append("text", $game->player[$i]->name.'さんは'.$next_check_place.'マス目のチェックポイントでとまります');
-                    }
+                    //TODO このif文を外して良いかどうかテスト
+                    //if ($next_check_place < $game->player[$i]->place) {
+                    $game->view->append("text", $game->player[$i]->name.'さんは'.$next_check_place.'マス目のチェックポイントでとまります');
+                    //}
                     $game->player[$i]->check_in = true;
                     $game->player[$i]->place = $next_check_place;
                 } else {

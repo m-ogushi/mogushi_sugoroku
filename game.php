@@ -47,10 +47,10 @@ class Game
             for ( $i = 0; $i < count( $this->player ); $i++ ) {
                 $this->view->append( "title", $this->player[$i]->name . "の番です" );
                 $this->turn_player = $i;
-                $this->advance = FALSE;
+                $this->advance = TRUE;
 
-                $doBeforeRoll = new doBeforeRoll();
-                $doBeforeRoll->checkrest($this);
+                $doBeforeRoll = new doBeforeRoll($this);
+                $doBeforeRoll->index();
 
                 $diceProgress = new diceprogress($this);
                 $diceProgress->roll();

@@ -9,11 +9,11 @@ class diceprogress
     public function roll()
     {
         $game = $this->game;
-        if ( $game->advance == TRUE ) {
+        if ($game->advance == true) {
             $this->progress();
+            StopCheckSquare::stayIfNotChecked($game);
+            $game->view->append("text", $game->player[$game->turn_player]->place."マス目にいます");
         }
-        StopCheckSquare::stayIfNotChecked($game);
-        $game->view->append( "text", $game->player[$game->turn_player]->place . "マス目にいます" );
     }
 
     public function progress()
