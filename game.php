@@ -55,29 +55,17 @@ class Game
                 $diceProgress = new diceprogress($this);
                 $diceProgress->roll();
 
-                if ( $this->advance == TRUE ) {
-                    //イベント(プレイヤー毎)
-                    $this->event_type = "player";
-                    $EventOccur = new EventOccur();
-                    $EventOccur->index($this);
-
-                    //チェックマス判定
-                    StopCheckSquare::stayIfNotChecked($this);
-
-                    //ゴールの判定
-                    $PlayerGoal = new PlayerGoal();
-                    $PlayerGoal->judge($this);
-                }
+                $doAfterRoll = new doAfterRoll();
+                $doAfterRoll->afterroll($this);
             }
 
             $this->view->append( "title", "ターン終わり" );
 
             //イベント(ターンの終わり)
             $this->event_type = "turn_end";
+            $EventOccur = new EventOccur();
             $EventOccur->index($this);
 
-            //チェックマス判定
-            StopCheckSquare::stayIfNotChecked($this);
             $this->turn++;
         }
     }

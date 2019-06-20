@@ -38,5 +38,6 @@ class EventOccur
             default:
                 break;
         }
+        StopCheckSquare::stayIfNotChecked($game);
     }
 }
