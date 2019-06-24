@@ -74,9 +74,7 @@ class Game
         $this->view->append( "title", "ターン終わり" );
 
         //イベント(ターンの終わり)
-        $this->event_type = "turn_end";
         $EventOccur = new EventOccur($this);
-        //$EventOccur->index($this);
         $EventOccur->endTurn();
 
         $this->turn++;

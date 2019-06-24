@@ -6,9 +6,6 @@ class doAfterRoll
     {
         if ($game->advance == true) {
             //イベント(プレイヤー毎)
-            $game->event_type = "player";
-            //$EventOccur = new EventOccur();
-            //$EventOccur->index($game);
             $EventOccur = new EventOccur($game);
             $EventOccur->playerTurn();
 
