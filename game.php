@@ -52,8 +52,8 @@ class Game
                 $doBeforeRoll = new doBeforeRoll($this);
                 $doBeforeRoll->index();
 
-                $diceProgress = new diceprogress($this);
-                $diceProgress->roll();
+                $rollDice = new rolldice($this);
+                $rollDice->rollPlayerTurn();
 
                 $doAfterRoll = new doAfterRoll();
                 $doAfterRoll->afterroll($this);

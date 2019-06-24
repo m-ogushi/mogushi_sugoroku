@@ -1,17 +1,18 @@
 <?php
 
-class diceprogress
+class rolldice
 {
     //コンストラクタ
     public function __construct( $game ){
         $this->game = $game;
     }
-    public function roll()
+    public function rollPlayerTurn()
     {
         $game = $this->game;
         if ($game->advance == true) {
             $this->progress();
-            StopCheckSquare::stayIfNotChecked($game);
+            $StopCheckSquare = new StopCheckSquare($game);
+            $StopCheckSquare->stayIfNotChecked();
             $game->view->append("text", $game->player[$game->turn_player]->place."マス目にいます");
         }
     }

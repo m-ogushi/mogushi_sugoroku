@@ -13,7 +13,7 @@ class PlayerGoal
     {
         $game->view->append("title", $game->player[$game->turn_player]->name."のかち!");
         $html = $game->view->html();
-        //$game->show( $html );
+        $game->show( $html );
         exit;
     }
 }

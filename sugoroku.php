@@ -3,7 +3,7 @@ require "game.php";
 require "board.php";
 require "player.php";
 require "dice.php";
-require "diceprogress.php";
+require "rolldice.php";
 require "eventoccur.php";
 require "eventmethod.php";
 require "stopchecksquare.php";
