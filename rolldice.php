@@ -1,6 +1,6 @@
 <?php
 
-class rolldice
+class rollDice
 {
     //コンストラクタ
     public function __construct( $game ){

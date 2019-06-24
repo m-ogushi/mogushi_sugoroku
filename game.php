@@ -63,8 +63,8 @@ class Game
         $doBeforeRoll = new doBeforeRoll($this);
         $doBeforeRoll->index();
 
-                $rollDice = new rolldice($this);
-                $rollDice->rollPlayerTurn();
+        $rollDice = new rollDice($this);
+        $rollDice->rollPlayerTurn();
 
         $doAfterRoll = new doAfterRoll();
         $doAfterRoll->afterroll($this);
@@ -75,8 +75,9 @@ class Game
 
         //イベント(ターンの終わり)
         $this->event_type = "turn_end";
-        $EventOccur = new EventOccur();
-        $EventOccur->index($this);
+        $EventOccur = new EventOccur($this);
+        //$EventOccur->index($this);
+        $EventOccur->endTurn();
 
         $this->turn++;
     }

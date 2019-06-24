@@ -7,7 +7,7 @@ class Moreprogress
     }
 
     public function player(){
-        $rollDice = new rolldice($this->game);
+        $rollDice = new rollDice($this->game);
         $rollDice->progress();
     }
 

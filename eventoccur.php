@@ -4,40 +4,43 @@ class EventOccur
 
     //private $game;
     //コンストラクタ
-    //public function __construct( $game ){
-    //    $game->game = $game;
+    public function __construct( $game ){
+        $this->game = $game;
+    }
     //}
 
-    public function index($game)
+    public function index()
     {
+        $game = $this->game;
         //これも分離
         if( count( $game->board->map ) <= $game->player[$game->turn_player]->place ){
             return;
         }
+    }
 
-        $event_type = $game->event_type;
+    public function playerTurn()
+    {
+        $game = $this->game;
+        $event_name = $game->board->map[$game->player[$game->turn_player]->place];
+        if (!empty($event_name)) {
+            $Class = new $event_name($game);
+            $Class->player();
+        }
+        $StopCheckSquare = new StopCheckSquare($game);
+        $StopCheckSquare->stayIfNotChecked();
+    }
 
-        switch ($event_type) {
-            case "player":
-                $event_name = $game->board->map[$game->player[$game->turn_player]->place];
-                if (!empty($event_name)) {
-                    $Class = new $event_name($game);
-                    $Class->$event_type();
-                }
-                break;
-            case "turn_end":
-                for ($i = 0; $i < count($game->player); $i++) {
-                    $event_names[] = $game->board->map[$game->player[$i]->place];
-                }
-                foreach ($event_names as $event_name) {
-                    if (!empty($event_name)) {
-                        $Class = new $event_name($game);
-                        $Class->$event_type();
-                    }
-                }
-                break;
-            default:
-                break;
+    public function endTurn()
+    {
+        $game = $this->game;
+        for ($i = 0; $i < count($game->player); $i++) {
+            $event_names[] = $game->board->map[$game->player[$i]->place];
+        }
+        foreach ($event_names as $event_name) {
+            if (!empty($event_name)) {
+                $Class = new $event_name($game);
+                $Class->turn_end();
+            }
         }
         $StopCheckSquare = new StopCheckSquare($game);
         $StopCheckSquare->stayIfNotChecked();
