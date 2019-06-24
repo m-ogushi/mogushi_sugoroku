@@ -42,32 +42,43 @@ class Game
         
         while ( true )
         {
-            $this->view->append( "title", $this->turn . "ターン目です" );
-            $this->trun_event = [];
+            $this->turnStart();
             for ( $i = 0; $i < count( $this->player ); $i++ ) {
-                $this->view->append( "title", $this->player[$i]->name . "の番です" );
                 $this->turn_player = $i;
-                $this->advance = TRUE;
+                $this->eachPlayerTurn();
+            }
+            $this->turnEnd();
+        }
+    }
 
-                $doBeforeRoll = new doBeforeRoll($this);
-                $doBeforeRoll->index();
+    public function turnStart(){
+        $this->view->append( "title", $this->turn . "ターン目です" );
+        $this->trun_event = [];
+    }
+
+    public function eachPlayerTurn() {
+        $this->view->append( "title", $this->player[$this->turn_player]->name . "の番です" );
+        $this->advance = TRUE;
+
+        $doBeforeRoll = new doBeforeRoll($this);
+        $doBeforeRoll->index();
 
                 $rollDice = new rolldice($this);
                 $rollDice->rollPlayerTurn();
 
-                $doAfterRoll = new doAfterRoll();
-                $doAfterRoll->afterroll($this);
-            }
+        $doAfterRoll = new doAfterRoll();
+        $doAfterRoll->afterroll($this);
+    }
 
-            $this->view->append( "title", "ターン終わり" );
+    public function turnEnd(){
+        $this->view->append( "title", "ターン終わり" );
 
-            //イベント(ターンの終わり)
-            $this->event_type = "turn_end";
-            $EventOccur = new EventOccur();
-            $EventOccur->index($this);
+        //イベント(ターンの終わり)
+        $this->event_type = "turn_end";
+        $EventOccur = new EventOccur();
+        $EventOccur->index($this);
 
-            $this->turn++;
-        }
+        $this->turn++;
     }
 
     public function show( $array_texts )
