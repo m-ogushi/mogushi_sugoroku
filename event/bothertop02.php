@@ -1,5 +1,5 @@
 <?php
-class Bothertop02 implements EventMethod
+class Bothertop02 implements EventInterface
 {
     //コンストラクタ
     public function __construct( $game ){

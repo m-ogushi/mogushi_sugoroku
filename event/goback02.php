@@ -1,5 +1,5 @@
 <?php
-class Goback02 implements EventMethod
+class Goback02 implements EventInterface
 {
     private $game;
     //コンストラクタ

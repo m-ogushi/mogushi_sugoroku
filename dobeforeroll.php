@@ -2,6 +2,7 @@
 
 class doBeforeRoll
 {
+    public $game;
     public function __construct( $game )
     {
         $this->game = $game;
@@ -9,7 +10,6 @@ class doBeforeRoll
 
     public function index()
     {
-        $game = $this->game;
         $this->checkRest();
         $this->checkInCheckPoint();
     }
@@ -21,6 +21,7 @@ class doBeforeRoll
             $game->player[$game->turn_player]->rest--;
             $game->advance = FALSE;
             $game->view->append("text", $game->player[$game->turn_player]->name."は休みです");
+            echo 'ぐっすり';
         }
     }
 

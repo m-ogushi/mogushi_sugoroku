@@ -10,4 +10,8 @@ class Player
         $this->check_in = FALSE;
         $this->not_checked = $board->check_place;
     }
+
+    public function yourTurn($game) {
+        echo 'あなたの番だからこそ';
+    }
 }

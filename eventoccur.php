@@ -9,15 +9,6 @@ class EventOccur
     }
     //}
 
-    public function index()
-    {
-        $game = $this->game;
-        //これも分離
-        if( count( $game->board->map ) <= $game->player[$game->turn_player]->place ){
-            return;
-        }
-    }
-
     public function playerTurn()
     {
         $game = $this->game;
