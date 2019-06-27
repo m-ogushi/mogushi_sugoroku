@@ -58,12 +58,12 @@ class Game
 
     public function eachPlayerTurn() {
         $this->view->append( "title", $this->player[$this->turn_player]->name . "の番です" );
-        $this->advance = TRUE;
+        //$this->advance = TRUE;
 
-        $this->player[$this->turn_player]->yourTurn($this);
+        $this->player[$this->turn_player]->yourTurn();
 
-        $doBeforeRoll = new doBeforeRoll($this);
-        $doBeforeRoll->index();
+        //$doBeforeRoll = new doBeforeRoll($this);
+        //$doBeforeRoll->index();
 
         $rollDice = new rollDice($this);
         $rollDice->rollPlayerTurn();

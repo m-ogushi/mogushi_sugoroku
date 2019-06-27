@@ -2,6 +2,7 @@
 
 class doBeforeRoll
 {
+    // いまはいらない
     public $game;
     public function __construct( $game )
     {
@@ -10,6 +11,8 @@ class doBeforeRoll
 
     public function index()
     {
+        $game = $this->game;
+        $game->advance = TRUE;
         $this->checkRest();
         $this->checkInCheckPoint();
     }
@@ -46,18 +49,10 @@ class doBeforeRoll
     public function tryPassCheckPoint()
     {
         $game = $this->game;
-        if ( $this->termPassCheckPoint() ) {
+        if ( in_array(mt_rand($game->dice[0]->min, $game->dice[0]->max), [1, 2]) ) {
             $game->player[$game->turn_player]->check_in = false;
             array_shift($game->player[$game->turn_player]->not_checked);
-        }
-    }
-
-    public function termPassCheckPoint()
-    {
-        $game = $this->game;
-        if ( in_array(mt_rand($game->dice[0]->min, $game->dice[0]->max), [1, 2]) ){
             $game->view->append("text", "これから進めます！");
-            return TRUE;
         } else {
             $game->view->append("text", "まだ進めません");
         }
