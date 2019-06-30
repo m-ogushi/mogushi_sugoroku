@@ -3,13 +3,10 @@ class Replace implements EventInterface
 {
     private $game;
     //コンストラクタ
-    public function __construct( $game ){
-        $this->game = $game;
+    public function __construct(){
     }
 
-    public function player(){
-        $game = $this->game;
-
+    public function player($game){
         do{
             $replace_oppoment = mt_rand( 0, count( $game->player ) - 1 );
         } while ( $game->player[$replace_oppoment]->name == $game->player[$game->turn_player]->name );
@@ -22,7 +19,7 @@ class Replace implements EventInterface
         $game->view->append( "text", $game->player[$game->turn_player]->name . "さんと" . $game->player[$replace_oppoment]->name . "さんが入れ替わりました" );
     }
 
-    public function turn_end(){
+    public function turn_end($game){
 
     }
 }

@@ -22,10 +22,12 @@ class Player
     public function checkRest()
     {
         if ( $this->rest > 0 ) {
+            echo $this->rest;
             $this->rest--;
             $this->advance = FALSE;
             //$game->view->append("text", $game->player[$game->turn_player]->name."は休みです");
             echo $this->name . "は休みです";
+            echo $this->rest;
         }
     }
 
@@ -50,5 +52,41 @@ class Player
            // $game->view->append("text", "まだ進めません");
             echo "まだすすめません";
         }
+    }
+
+    public function diceProgress($game)
+    {
+        $steps = 0;
+        for ($i = 0; $i < count($game->dice); $i++) {
+            $step = $game->dice[$i]->roll();
+            $steps += $step;
+        }
+        $this->place += $steps;
+        //$game->view->append( "text", $steps . "マス進みます" );
+        echo $steps . "マス進みます";
+    }
+
+    public function stayIfNotChecked()
+    {
+        //for ($i = 0; $i < count($game->player); $i++) {
+            if (! empty($this->not_checked)) {
+                $next_check_place = min($this->not_checked);
+                if ($next_check_place <= $this->place) {
+                    //TODO このif文を外して良いかどうかテスト(場所が変わったときに、必要)
+                    if ($next_check_place < $this->place) {
+                        //$game->view->append("text", $this->name.'さんは'.$next_check_place.'マス目のチェックポイントでとまります');
+                    }
+                    $this->check_in = true;
+                    $this->place = $next_check_place;
+                } else {
+                    $this->check_in = false;
+                }
+            }
+        //}
+    }
+
+    public function event($game)
+    {
+
     }
 }

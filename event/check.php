@@ -3,15 +3,14 @@ class Check implements EventInterface
 {
     private $game;
     //コンストラクタ
-    public function __construct( $game ){
-        $this->game = $game;
+    public function __construct(){
     }
 
-    public function player(){
+    public function player($game){
 
     }
 
-    public function turn_end(){
+    public function turn_end($game){
 
     }
 }

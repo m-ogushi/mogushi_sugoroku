@@ -3,17 +3,15 @@ class Goback03 implements EventInterface
 {
     private $game;
     //コンストラクタ
-    public function __construct( $game ){
-        $this->game = $game;
+    public function __construct(){
     }
 
-    public function player(){
-        $game = $this->game;
+    public function player($game){
         $game->player[$game->turn_player]->place -= 3;
         $game->view->append( "text", "3マス戻りました" );
     }
 
-    public function turn_end(){
+    public function turn_end($game){
 
     }
 }

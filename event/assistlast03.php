@@ -2,16 +2,13 @@
 class Assistlast03 implements EventInterface
 {
     //コンストラクタ
-    public function __construct( $game ){
-        $this->game = $game;
+    public function __construct(){
     }
 
-    public function player(){
-
+    public function player($game){
     }
 
-    public function turn_end(){
-        $game = $this->game;
+    public function turn_end($game){
         $Class = new EventFunction( $game );
         $user_id = $Class->get_last_player();
         if ( $user_id ){

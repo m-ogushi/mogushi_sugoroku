@@ -5,6 +5,7 @@ require "player.php";
 require "dice.php";
 require "rolldice.php";
 require "eventoccur.php";
+require "eventoccurnew.php";
 require "eventmethod.php";
 require "stopchecksquare.php";
 require "dobeforeroll.php";
@@ -29,6 +30,7 @@ require "event/check.php";
 require "event/moreprogress.php";
 require "event/goal.php";
 require "event/eventfunction.php";
+require "event/noEvent.php";
 require "view/view.php";
 
 $game = Game::getInstance();

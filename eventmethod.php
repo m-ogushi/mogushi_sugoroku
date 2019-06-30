@@ -1,6 +1,6 @@
 <?php
 interface EventInterface
 {
-    public function player();
-    public function turn_end();
+    public function player($game);
+    public function turn_end($game);
 }

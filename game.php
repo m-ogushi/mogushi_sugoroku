@@ -58,6 +58,7 @@ class Game
 
     public function eachPlayerTurn() {
         $this->view->append( "title", $this->player[$this->turn_player]->name . "の番です" );
+        echo $this->player[$this->turn_player]->name . "の番です" ."\n";
         //$this->advance = TRUE;
 
         $this->player[$this->turn_player]->yourTurn();
@@ -65,19 +66,52 @@ class Game
         //$doBeforeRoll = new doBeforeRoll($this);
         //$doBeforeRoll->index();
 
-        $rollDice = new rollDice($this);
-        $rollDice->rollPlayerTurn();
+        $this->player[$this->turn_player]->diceProgress($this);
 
-        $doAfterRoll = new doAfterRoll();
-        $doAfterRoll->afterroll($this);
+        for ($i = 0; $i < count($this>player); $i++) {
+            $this->player[$i]->stayIfNotChecked();
+        }
+
+        //$rollDice = new rollDice($this);
+        //$rollDice->rollPlayerTurn();
+
+        //$this->player[$this->turn_player]->event($this);
+
+        $event = EventOccur2::build($this->board->map[$this->player[$this->turn_player]->place]);
+        $event->player($this);
+
+        for ($i = 0; $i < count($this->player); $i++) {
+            echo $this->player[$i]->name."をチェックします!"."\n";
+            $this->player[$i]->stayIfNotChecked();
+        }
+
+        echo $this->player[$this->turn_player]->place . "マス目にいます"."\n";
+
+        if ($this->player[$this->turn_player]->place >= count($this->board->map)) {
+            //$game->view->append("title", $game->player[$game->turn_player]->name."のかち!");
+            echo $this->player[$this->turn_player]->name."のかち!";
+            exit;
+        }
+
+        //$doAfterRoll = new doAfterRoll();
+        //$doAfterRoll->afterroll($this);
     }
 
     public function turnEnd(){
         $this->view->append( "title", "ターン終わり" );
 
         //イベント(ターンの終わり)
-        $EventOccur = new EventOccur($this);
-        $EventOccur->endTurn();
+        //$EventOccur = new EventOccur($this);
+        //$EventOccur->endTurn();
+
+        for ($i = 0; $i < count($this>player); $i++) {
+            $event = EventOccur2::build($this->board->map[$this->player[$i]->place]);
+            $event->turn_end($this);
+        }
+
+        for ($i = 0; $i < count($this>player); $i++) {
+            $this->player[$i]->stayIfNotChecked();
+        }
 
         $this->turn++;
     }
