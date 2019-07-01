@@ -11,7 +11,7 @@ class Player
         $this->not_checked = $board->check_place;
     }
 
-    public function yourTurn() {
+    public function beforeRoll() {
         echo 'あなたの番だからこそ';
         $this->advance = TRUE;
         $this->checkRest();
@@ -85,8 +85,16 @@ class Player
         //}
     }
 
-    public function event($game)
+    public function playerEvent($game)
     {
+        if( $this->advance == TRUE ) {
+            $event = EventOccur2::build($game->board->map[$this->place]);
+            $event->player($game);
+        }
+    }
 
+    public function playerGoal($game)
+    {
+        return ( $this->place >= count($game->board->map) ) ? TRUE: FALSE;
     }
 }
