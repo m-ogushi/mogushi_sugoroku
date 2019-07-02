@@ -25,11 +25,6 @@ class Game
     {
         $this->dice[] = $dice;
     }
-    
-    public function addEvent( $event )
-    {
-        $this->event = $event;
-    }
 
     public function start()
     {
