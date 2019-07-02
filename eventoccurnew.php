@@ -6,43 +6,13 @@ class EventOccur2
     //コンストラクタ
     public function __construct( ){
     }
-    //}
 
     public static function build($place)
     {
         if (!empty($place)) {
             return $Class = new $place();
-            //$Class->player();
         } else {
             return $Class = new noEvent();
         }
     }
-
-/*    public function playerTurn()
-    {
-        $game = $this->game;
-        $event_name = $game->board->map[$game->player[$game->turn_player]->place];
-        if (!empty($event_name)) {
-            $Class = new $event_name($game);
-            $Class->player();
-        }
-        $StopCheckSquare = new StopCheckSquare($game);
-        $StopCheckSquare->stayIfNotChecked();
-    }
-
-    public function endTurn()
-    {
-        $game = $this->game;
-        for ($i = 0; $i < count($game->player); $i++) {
-            $event_names[] = $game->board->map[$game->player[$i]->place];
-        }
-        foreach ($event_names as $event_name) {
-            if (!empty($event_name)) {
-                $Class = new $event_name($game);
-                $Class->turn_end();
-            }
-        }
-        $StopCheckSquare = new StopCheckSquare($game);
-        $StopCheckSquare->stayIfNotChecked();
-    }*/
 }

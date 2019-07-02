@@ -11,7 +11,7 @@ class Player
         $this->not_checked = $board->check_place;
     }
 
-    public function yourTurn() {
+    public function doBeforeRoll() {
         echo 'あなたの番だからこそ';
         $this->advance = TRUE;
         $this->checkRest();
@@ -56,14 +56,16 @@ class Player
 
     public function diceProgress($game)
     {
-        $steps = 0;
-        for ($i = 0; $i < count($game->dice); $i++) {
-            $step = $game->dice[$i]->roll();
-            $steps += $step;
+        if ($this->advance == TRUE) {
+            $steps = 0;
+            for ($i = 0; $i < count($game->dice); $i++) {
+                $step = $game->dice[$i]->roll();
+                $steps += $step;
+            }
+            $this->place += $steps;
+            //$game->view->append( "text", $steps . "マス進みます" );
+            echo $steps . "マス進みます";
         }
-        $this->place += $steps;
-        //$game->view->append( "text", $steps . "マス進みます" );
-        echo $steps . "マス進みます";
     }
 
     public function stayIfNotChecked()
@@ -87,6 +89,9 @@ class Player
 
     public function event($game)
     {
-
+        if ($this->advance == TRUE) {
+            $event = EventOccur2::build($game->board->map[$this->place]);
+            $event->player($game);
+        }
     }
 }
