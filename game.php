@@ -26,11 +26,6 @@ class Game
         $this->dice[] = $dice;
     }
     
-    public function addEvent( $event )
-    {
-        $this->event = $event;
-    }
-
     public function start()
     {
         $this->turn = 1;
@@ -51,39 +46,34 @@ class Game
         }
     }
 
-    public function turnStart()
+    private function turnStart()
     {
         $this->view->append( "title", $this->turn . "ターン目です" );
         $this->trun_event = [];
     }
 
-    public function eachPlayerTurn()
+    private function eachPlayerTurn()
     {
-        $this->view->append( "title", $this->player[$this->turn_player]->name . "の番です" );
-        echo $this->player[$this->turn_player]->name . "の番です" ."\n";
-        //$this->advance = TRUE;
+        $player = $this->player[$this->turn_player];
+        $this->view->append( "title", $player->name . "の番です" );
+        echo $player->name . "の番です" ."\n";
 
-        $this->player[$this->turn_player]->beforeRoll();
+        $player->beforeRollDice();
 
-        $this->player[$this->turn_player]->diceProgress($this);
-
+        $player->diceProgress($this);
         $this->checkAllPlayerStayIfNotChecked();
 
-        $this->player[$this->turn_player]->playerEvent($this);
-
+        $player->playerEvent($this);
         $this->checkAllPlayerStayIfNotChecked();
 
-        echo $this->player[$this->turn_player]->place . "マス目にいます"."\n";
+        echo $player->place . "マス目にいます"."\n";
 
-        //if ($this->player[$this->turn_player]->place >= count($this->board->map)) {
-        if ( $this->player[$this->turn_player]->playerGoal($this) ){
-            //$game->view->append("title", $game->player[$game->turn_player]->name."のかち!");
-            echo $this->player[$this->turn_player]->name."のかち!";
-            exit;
+        if ( $player->Goal($this) ){
+            $this->goalAndEnd($player);
         }
     }
 
-    public function checkAllPlayerStayIfNotChecked()
+    private function checkAllPlayerStayIfNotChecked()
     {
         for ($i = 0; $i < count($this->player); $i++) {
             echo $this->player[$i]->name."をチェックします!"."\n";
@@ -91,10 +81,19 @@ class Game
         }
     }
 
-    public function turnEnd()
+    private function turnEnd()
     {
         $this->view->append( "title", "ターン終わり" );
 
+        $this->turnEndEvent();
+
+        $this->checkAllPlayerStayIfNotChecked();
+
+        $this->turn++;
+    }
+
+    private function turnEndEvent()
+    {
         for ( $i = 0; $i < count( $this->player ); $i++ ) {
             $turn_end_event_names[] = $this->board->map[$this->player[$i]->place];
         }
@@ -102,10 +101,12 @@ class Game
             $event = EventOccur2::build($value);
             $event->turn_end($this);
         }
+    }
 
-        $this->checkAllPlayerStayIfNotChecked();
-
-        $this->turn++;
+    private function goalAndEnd($goal_player)
+    {
+        echo $goal_player->name."のかち!";
+        exit;
     }
 
     public function show( $array_texts )

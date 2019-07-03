@@ -11,9 +11,9 @@ class Player
         $this->not_checked = $board->check_place;
     }
 
-    public function beforeRoll() {
+    public function beforeRollDice() {
         echo 'あなたの番だからこそ';
-        $this->advance = TRUE;
+        $this->this_turn_advance = TRUE;
         $this->checkRest();
         $this->checkInCheckPoint();
 
@@ -24,17 +24,16 @@ class Player
         if ( $this->rest > 0 ) {
             echo $this->rest;
             $this->rest--;
-            $this->advance = FALSE;
+            $this->this_turn_advance = FALSE;
             //$game->view->append("text", $game->player[$game->turn_player]->name."は休みです");
             echo $this->name . "は休みです";
-            echo $this->rest;
         }
     }
 
     public function checkInCheckPoint()
     {
         if ($this->check_in == true) {
-            $this->advance = FALSE;
+            $this->this_turn_advance = FALSE;
             //$game->view->append("text", "チェックポイントにいます");
             echo "チェックポイントにいます";
             $this->tryPassCheckPoint();
@@ -56,7 +55,7 @@ class Player
 
     public function diceProgress($game)
     {
-        if ($this->advance == TRUE) {
+        if ($this->this_turn_advance == TRUE) {
             $steps = 0;
             for ($i = 0; $i < count($game->dice); $i++) {
                 $step = $game->dice[$i]->roll();
@@ -89,13 +88,13 @@ class Player
 
     public function playerEvent($game)
     {
-        if( $this->advance == TRUE ) {
+        if( $this->this_turn_advance == TRUE ) {
             $event = EventOccur2::build($game->board->map[$this->place]);
             $event->player($game);
         }
     }
 
-    public function playerGoal($game)
+    public function Goal($game)
     {
         return ( $this->place >= count($game->board->map) ) ? TRUE: FALSE;
     }
