@@ -11,11 +11,10 @@ class Player
         $this->not_checked = $board->check_place;
     }
 
-    public function beforeRollDice() {
-        echo 'あなたの番だからこそ';
+    public function beforeRollDice($game) {
         $this->this_turn_advance = TRUE;
         $this->checkRest();
-        $this->checkInCheckPoint();
+        $this->checkInCheckPoint($game);
 
     }
 
@@ -30,19 +29,19 @@ class Player
         }
     }
 
-    public function checkInCheckPoint()
+    public function checkInCheckPoint($game)
     {
         if ($this->check_in == true) {
             $this->this_turn_advance = FALSE;
             //$game->view->append("text", "チェックポイントにいます");
             echo "チェックポイントにいます";
-            $this->tryPassCheckPoint();
+            $this->tryPassCheckPoint($game);
         }
     }
 
-    public function tryPassCheckPoint()
+    public function tryPassCheckPoint($game)
     {
-        if ( in_array(mt_rand(/*$game->dice[0]->min, $game->dice[0]->max)*/0,6), [1, 2]) ) {
+        if ( in_array($game->dice[0]->roll(), [1, 2]) ) {
             $this->check_in = false;
             array_shift($this->not_checked);
            // $game->view->append("text", "これから進めます！");
@@ -53,7 +52,7 @@ class Player
         }
     }
 
-    public function diceProgress($game)
+    public function rollDice($game)
     {
         if ($this->this_turn_advance == TRUE) {
             $steps = 0;
@@ -67,10 +66,10 @@ class Player
         }
     }
 
-    public function stayIfNotChecked()
+    public function stayIfCheckIn()
     {
         //for ($i = 0; $i < count($game->player); $i++) {
-            if (! empty($this->not_checked)) {
+            if ( !empty($this->not_checked) ) {
                 $next_check_place = min($this->not_checked);
                 if ($next_check_place <= $this->place) {
                     //TODO このif文を外して良いかどうかテスト(場所が変わったときに、必要)
@@ -96,6 +95,6 @@ class Player
 
     public function Goal($game)
     {
-        return ( $this->place >= count($game->board->map) ) ? TRUE: FALSE;
+        return ( $this->place >= count( $game->board->map) ) ? TRUE: FALSE;
     }
 }

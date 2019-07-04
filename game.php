@@ -25,6 +25,11 @@ class Game
     {
         $this->dice[] = $dice;
     }
+
+    public function setView( $view )
+    {
+        $this->view = $view;
+    }
     
     public function start()
     {
@@ -58,13 +63,13 @@ class Game
         $this->view->append( "title", $player->name . "の番です" );
         echo $player->name . "の番です" ."\n";
 
-        $player->beforeRollDice();
+        $player->beforeRollDice($this);
 
-        $player->diceProgress($this);
-        $this->checkAllPlayerStayIfNotChecked();
+        $player->rollDice($this);
+        $this->checkAllPlayerStayIfCheckIn();
 
         $player->playerEvent($this);
-        $this->checkAllPlayerStayIfNotChecked();
+        $this->checkAllPlayerStayIfCheckIn();
 
         echo $player->place . "マス目にいます"."\n";
 
@@ -73,11 +78,11 @@ class Game
         }
     }
 
-    private function checkAllPlayerStayIfNotChecked()
+    private function checkAllPlayerStayIfCheckIn()
     {
         for ($i = 0; $i < count($this->player); $i++) {
             echo $this->player[$i]->name."をチェックします!"."\n";
-            $this->player[$i]->stayIfNotChecked();
+            $this->player[$i]->stayIfCheckIn();
         }
     }
 
@@ -86,8 +91,7 @@ class Game
         $this->view->append( "title", "ターン終わり" );
 
         $this->turnEndEvent();
-
-        $this->checkAllPlayerStayIfNotChecked();
+        $this->checkAllPlayerStayIfCheckIn();
 
         $this->turn++;
     }
@@ -106,6 +110,10 @@ class Game
     private function goalAndEnd($goal_player)
     {
         echo $goal_player->name."のかち!";
+        //$html = $this->view->html();
+        //$this->show( $html );
+        $view = $this->view;
+        $view->html()->show();
         exit;
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-class StopCheckSquare
+/*class StopCheckSquare
 {
     //TODO こことか、staticによびだしているのは問題なので買える
     public function __construct( $game ){
@@ -28,4 +28,4 @@ class StopCheckSquare
     }
 
 
-}
+}*/

@@ -17,8 +17,8 @@ class EventOccur
             $Class = new $event_name($game);
             $Class->player();
         }
-        $StopCheckSquare = new StopCheckSquare($game);
-        $StopCheckSquare->stayIfNotChecked();
+       // $StopCheckSquare = new StopCheckSquare($game);
+       // $StopCheckSquare->stayIfNotChecked();
     }
 
     public function endTurn()
@@ -33,7 +33,7 @@ class EventOccur
                 $Class->turn_end();
             }
         }
-        $StopCheckSquare = new StopCheckSquare($game);
-        $StopCheckSquare->stayIfNotChecked();
+       // $StopCheckSquare = new StopCheckSquare($game);
+        //$StopCheckSquare->stayIfNotChecked();
     }
 }
