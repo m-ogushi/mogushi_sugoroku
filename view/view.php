@@ -1,12 +1,12 @@
 <?php
-require "html.php";
+//require "html.php";
 
 class View
 {
     public function __construct()
     {
         $this->contents  = [];
-        $this->html      = new Html();
+        //$this->html      = new Html();
     }
 
     /*private static $view;
@@ -26,7 +26,7 @@ class View
 
     public function html()
     {
-        //$this->html = new Html( $this->contents );
+        $this->html = new Html( $this->contents );
         return $this->html->show($this->contents);
     }
 }

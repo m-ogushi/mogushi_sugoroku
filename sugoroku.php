@@ -32,6 +32,7 @@ require "event/goal.php";
 require "event/eventfunction.php";
 require "event/noEvent.php";
 require "view/view.php";
+require "view/html.php";
 
 $game = Game::getInstance();
 $game->setBoard(new Board('data/board.csv'));
