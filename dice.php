@@ -8,10 +8,11 @@ class Dice
         $this->max = $planes;
     }
 
-    public function roll()
+    public function roll($game)
     {
         $result = mt_rand( $this->min, $this->max );
-        echo $result . "の目が出た" . "\n";
+        $game->view->append( "text", $result . "の目が出た" );
+
         return $result;
 
     }

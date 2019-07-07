@@ -24,7 +24,6 @@ class doBeforeRoll
             $game->player[$game->turn_player]->rest--;
             $game->advance = FALSE;
             $game->view->append("text", $game->player[$game->turn_player]->name."は休みです");
-            echo 'ぐっすり';
         }
     }
 

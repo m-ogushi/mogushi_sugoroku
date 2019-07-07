@@ -13,19 +13,17 @@ class Player
 
     public function beforeRollDice($game) {
         $this->this_turn_advance = TRUE;
-        $this->checkRest();
+        $this->checkRest($game);
         $this->checkInCheckPoint($game);
 
     }
 
-    public function checkRest()
+    public function checkRest($game)
     {
         if ( $this->rest > 0 ) {
-            echo $this->rest;
             $this->rest--;
             $this->this_turn_advance = FALSE;
-            //$game->view->append("text", $game->player[$game->turn_player]->name."は休みです");
-            echo $this->name . "は休みです";
+            $game->view->append( "text", $this->name . "は休みです" );
         }
     }
 
@@ -33,22 +31,22 @@ class Player
     {
         if ($this->check_in == true) {
             $this->this_turn_advance = FALSE;
-            //$game->view->append("text", "チェックポイントにいます");
-            echo "チェックポイントにいます";
+            $game->view->append("text", "チェックポイントにいます");
+            //echo "チェックポイントにいます";
             $this->tryPassCheckPoint($game);
         }
     }
 
     public function tryPassCheckPoint($game)
     {
-        if ( in_array($game->dice[0]->roll(), [1, 2]) ) {
+        if ( in_array($game->dice[0]->roll($game), [1, 2]) ) {
             $this->check_in = false;
             array_shift($this->not_checked);
            // $game->view->append("text", "これから進めます！");
-            echo "これからすすめます";
+            $game->view->append( "text", "これからすすめます" );
         } else {
            // $game->view->append("text", "まだ進めません");
-            echo "まだすすめません";
+            $game->view->append( "text", "まだ進めません" );
         }
     }
 
@@ -57,16 +55,15 @@ class Player
         if ($this->this_turn_advance == TRUE) {
             $steps = 0;
             for ($i = 0; $i < count($game->dice); $i++) {
-                $step = $game->dice[$i]->roll();
+                $step = $game->dice[$i]->roll($game);
                 $steps += $step;
             }
             $this->place += $steps;
-            //$game->view->append( "text", $steps . "マス進みます" );
-            echo $steps . "マス進みます";
+            $game->view->append( "text", $steps . "マス進みます" );
         }
     }
 
-    public function stayIfCheckIn()
+    public function stayIfCheckIn($game)
     {
         //for ($i = 0; $i < count($game->player); $i++) {
             if ( !empty($this->not_checked) ) {
@@ -74,7 +71,7 @@ class Player
                 if ($next_check_place <= $this->place) {
                     //TODO このif文を外して良いかどうかテスト(場所が変わったときに、必要)
                     if ($next_check_place < $this->place) {
-                        //$game->view->append("text", $this->name.'さんは'.$next_check_place.'マス目のチェックポイントでとまります');
+                        $game->view->append("text", $game->name.'さんは'.$next_check_place.'マス目のチェックポイントでとまります');
                     }
                     $this->check_in = true;
                     $this->place = $next_check_place;

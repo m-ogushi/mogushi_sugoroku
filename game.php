@@ -61,7 +61,6 @@ class Game
     {
         $player = $this->player[$this->turn_player];
         $this->view->append( "title", $player->name . "の番です" );
-        echo $player->name . "の番です" ."\n";
 
         $player->beforeRollDice($this);
 
@@ -71,7 +70,8 @@ class Game
         $player->playerEvent($this);
         $this->checkAllPlayerStayIfCheckIn();
 
-        echo $player->place . "マス目にいます"."\n";
+        $this->view->append( "title", $player->place . "マス目にいます" );
+
 
         if ( $player->Goal($this) ){
             $this->goalAndEnd($player);
@@ -81,8 +81,8 @@ class Game
     private function checkAllPlayerStayIfCheckIn()
     {
         for ($i = 0; $i < count($this->player); $i++) {
-            echo $this->player[$i]->name."をチェックします!"."\n";
-            $this->player[$i]->stayIfCheckIn();
+            //echo $this->player[$i]->name."をチェックします!"."\n";
+            $this->player[$i]->stayIfCheckIn($this);
         }
     }
 
@@ -109,18 +109,8 @@ class Game
 
     private function goalAndEnd($goal_player)
     {
-        echo $goal_player->name."のかち!";
-        //$html = $this->view->html();
-        //$this->show( $html );
-        $view = $this->view;
-        $view->html()->show();
+        $this->view->append( "text", $goal_player->name."のかち!");
+        $this->view->html()->show($this);
         exit;
-    }
-
-    public function show( $array_texts )
-    {
-        foreach ( $array_texts as $key => $value ){
-            echo $value;
-        }
     }
 }

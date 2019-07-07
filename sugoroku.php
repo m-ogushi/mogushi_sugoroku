@@ -6,7 +6,7 @@ require "dice.php";
 require "rolldice.php";
 require "eventoccur.php";
 require "eventoccurnew.php";
-require "eventmethod.php";
+require "eventInterface.php";
 require "stopchecksquare.php";
 require "dobeforeroll.php";
 require "doafterroll.php";
