@@ -34,6 +34,7 @@ require "view/gameHtml.php";
 
 $game = Game::getInstance();
 $game->setBoard(new Board('data/board.csv'));
+//DIしようか
 $game->addPlayer(new Player('Taro',$game->board ));
 $game->addPlayer(new Player('Jiro',$game->board ));
 $game->setDice(new Dice( 8 ));
