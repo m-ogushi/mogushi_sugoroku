@@ -1,5 +1,5 @@
 <?php
-class Html
+class GameHtml implements HtmlInterface
 {
     //コンストラクタ
     public function __construct()

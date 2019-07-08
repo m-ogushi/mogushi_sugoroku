@@ -65,21 +65,19 @@ class Player
 
     public function stayIfCheckIn($game)
     {
-        //for ($i = 0; $i < count($game->player); $i++) {
-            if ( !empty($this->not_checked) ) {
-                $next_check_place = min($this->not_checked);
-                if ($next_check_place <= $this->place) {
-                    //TODO このif文を外して良いかどうかテスト(場所が変わったときに、必要)
-                    if ($next_check_place < $this->place) {
-                        $game->view->append("text", $game->name.'さんは'.$next_check_place.'マス目のチェックポイントでとまります');
-                    }
-                    $this->check_in = true;
-                    $this->place = $next_check_place;
-                } else {
-                    $this->check_in = false;
+        if ( !empty($this->not_checked) ) {
+            $next_check_place = min($this->not_checked);
+            if ($next_check_place <= $this->place) {
+                //TODO このif文を外して良いかどうかテスト(場所が変わったときに、必要)
+                if ($next_check_place < $this->place) {
+                    $game->view->append("text", $this->name.'さんは'.$next_check_place.'マス目のチェックポイントでとまります');
                 }
+                $this->check_in = true;
+                $this->place = $next_check_place;
+            } else {
+                $this->check_in = false;
             }
-        //}
+        }
     }
 
     public function playerEvent($game)

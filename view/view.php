@@ -3,10 +3,10 @@
 
 class View
 {
-    public function __construct()
+    public function __construct(HtmlInterface $html)
     {
         $this->contents  = [];
-        $this->html      = new Html();
+        $this->html      = $html;
     }
 
     public function append( $type, $context )
@@ -18,4 +18,5 @@ class View
     {
         return $this->html;
     }
+
 }

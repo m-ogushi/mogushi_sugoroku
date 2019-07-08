@@ -81,7 +81,6 @@ class Game
     private function checkAllPlayerStayIfCheckIn()
     {
         for ($i = 0; $i < count($this->player); $i++) {
-            //echo $this->player[$i]->name."をチェックします!"."\n";
             $this->player[$i]->stayIfCheckIn($this);
         }
     }

@@ -3,14 +3,10 @@ require "game.php";
 require "board.php";
 require "player.php";
 require "dice.php";
-require "rolldice.php";
-require "eventoccur.php";
 require "eventoccurnew.php";
 require "eventInterface.php";
-require "stopchecksquare.php";
 require "dobeforeroll.php";
 require "doafterroll.php";
-require "playergoal.php";
 require "event/goadvance01.php";
 require "event/goadvance02.php";
 require "event/goadvance03.php";
@@ -31,8 +27,10 @@ require "event/moreprogress.php";
 require "event/goal.php";
 require "event/eventfunction.php";
 require "event/noEvent.php";
+
+require "view/htmlInterface.php";
 require "view/view.php";
-require "view/html.php";
+require "view/gameHtml.php";
 
 $game = Game::getInstance();
 $game->setBoard(new Board('data/board.csv'));
@@ -40,7 +38,8 @@ $game->addPlayer(new Player('Taro',$game->board ));
 $game->addPlayer(new Player('Jiro',$game->board ));
 $game->setDice(new Dice( 8 ));
 $game->setDice(new Dice( 6 ));
-//$game->view = View::getInstance();
-$game->setView(new View());
+
+$html = new GameHtml();
+$game->setView(new View($html));
 $game->start();
 ?>
