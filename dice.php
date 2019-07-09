@@ -1,5 +1,5 @@
 <?php
-class Dice
+class Dice implements DiceInterface
 {
     //コンストラクタ
     public function __construct( $planes )

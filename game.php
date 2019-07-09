@@ -16,17 +16,17 @@ class Game
         $this->board = $board;
     }
     
-    public function addPlayer( $player )
+    public function addPlayer(PlayerInterface $player )
     {
         $this->player[] = $player;    
     }
 
-    public function setDice( $dice )
+    public function setDice(DiceInterface $dice )
     {
         $this->dice[] = $dice;
     }
 
-    public function setView( $view )
+    public function setView(ViewInterface $view )
     {
         $this->view = $view;
     }
@@ -98,8 +98,9 @@ class Game
     private function turnEndEvent()
     {
         for ( $i = 0; $i < count( $this->player ); $i++ ) {
-            $turn_end_event_names[] = $this->board->map[$this->player[$i]->place];
+            $turn_end_event_names[] = $this->board->map($this->player[$i]);
         }
+        var_dump( $turn_end_event_names );
         foreach ( $turn_end_event_names as $value ) {
             $event = EventOccur2::build($value);
             $event->turn_end($this);
@@ -109,7 +110,7 @@ class Game
     private function goalAndEnd($goal_player)
     {
         $this->view->append( "text", $goal_player->name."のかち!");
-        $this->view->html()->show($this);
+        //$this->view->html()->show($this);
         exit;
     }
 }

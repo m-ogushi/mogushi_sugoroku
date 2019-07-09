@@ -1,7 +1,5 @@
 <?php
-//require "html.php";
-
-class View
+class View implements ViewInterface
 {
     public function __construct(HtmlInterface $html)
     {

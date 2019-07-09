@@ -22,4 +22,9 @@ class Board
         $this->map = $map;
         $this->check_place = $check_place;
     }
+
+    public function map(PlayerInterface $player)
+    {
+        return $this->map[$player->place];
+    }
 }

@@ -1,14 +1,14 @@
 <?php
-class Player
+class Player implements PlayerInterface
 {
     //コンストラクタ
-    public function __construct( $player, $board )
+    public function __construct( $player, $game )
     {
         $this->name  = $player;
         $this->place = 0;
         $this->rest = 0;
         $this->check_in = FALSE;
-        $this->not_checked = $board->check_place;
+        $this->not_checked = $game->board->check_place;
     }
 
     public function beforeRollDice($game) {
@@ -42,10 +42,8 @@ class Player
         if ( in_array($game->dice[0]->roll($game), [1, 2]) ) {
             $this->check_in = false;
             array_shift($this->not_checked);
-           // $game->view->append("text", "これから進めます！");
             $game->view->append( "text", "これからすすめます" );
         } else {
-           // $game->view->append("text", "まだ進めません");
             $game->view->append( "text", "まだ進めません" );
         }
     }
@@ -68,7 +66,6 @@ class Player
         if ( !empty($this->not_checked) ) {
             $next_check_place = min($this->not_checked);
             if ($next_check_place <= $this->place) {
-                //TODO このif文を外して良いかどうかテスト(場所が変わったときに、必要)
                 if ($next_check_place < $this->place) {
                     $game->view->append("text", $this->name.'さんは'.$next_check_place.'マス目のチェックポイントでとまります');
                 }

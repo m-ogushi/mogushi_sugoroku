@@ -1,12 +1,16 @@
 <?php
 require "game.php";
 require "board.php";
+
+require "playerInterface.php";
 require "player.php";
+
+require "diceInterface.php";
 require "dice.php";
+
 require "eventoccurnew.php";
+
 require "eventInterface.php";
-require "dobeforeroll.php";
-require "doafterroll.php";
 require "event/goadvance01.php";
 require "event/goadvance02.php";
 require "event/goadvance03.php";
@@ -28,19 +32,18 @@ require "event/goal.php";
 require "event/eventfunction.php";
 require "event/noEvent.php";
 
-require "view/htmlInterface.php";
+require "view/viewInterface.php";
 require "view/view.php";
+require "view/htmlInterface.php";
 require "view/gameHtml.php";
 
 $game = Game::getInstance();
 $game->setBoard(new Board('data/board.csv'));
-//DIしようか
-$game->addPlayer(new Player('Taro',$game->board ));
-$game->addPlayer(new Player('Jiro',$game->board ));
+$game->addPlayer(new Player('Taro',$game ));
+$game->addPlayer(new Player('Jiro',$game ));
 $game->setDice(new Dice( 8 ));
 $game->setDice(new Dice( 6 ));
 
 $html = new GameHtml();
 $game->setView(new View($html));
 $game->start();
-?>
