@@ -1,14 +1,12 @@
 <?php
-class EventFunction
+class EventUtility
 {
     private $game;
     //コンストラクタ
-    public function __construct( $game ){
-        $this->game = $game;
+    public function __construct(){
     }
 
-    public function get_top_player(){
-        $game = $this->game;
+    public static function get_top_player( $game ){
         $player_place = [];
         $player_id = [];
         for ( $i = 0; $i < count( $game->player ); $i++ ){
@@ -24,8 +22,7 @@ class EventFunction
         }
     }
 
-    public function get_last_player(){
-        $game = $this->game;
+    public static function get_last_player($game){
         $player_place = [];
         $player_id = [];
         for ( $i = 0; $i < count( $game->player ); $i++ ){

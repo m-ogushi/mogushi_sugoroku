@@ -10,10 +10,9 @@ class Bothertop02 implements EventInterface
     }
 
     public function turn_end($game){
-        $Class = new EventFunction( $game );
-        $user_id = $Class->get_top_player();
+        $user_id = EventUtility::get_top_player($game);
         if ( $user_id ){
-            $game->player[$user_id]->place -= 2;
+            $game->player[$user_id]->move(-2);
             $game->view->append( "text", "トップの" . $game->player[$user_id]->name . "が2マス戻りました" );
         }
     }

@@ -54,7 +54,7 @@ class Game
     private function turnStart()
     {
         $this->view->append( "title", $this->turn . "ターン目です" );
-        $this->trun_event = [];
+        $this->game_status = "player";
     }
 
     private function eachPlayerTurn()
@@ -67,7 +67,7 @@ class Game
         $player->rollDice($this);
         $this->checkAllPlayerStayIfCheckIn();
 
-        $player->playerEvent($this);
+        $this->playerEvent();
         $this->checkAllPlayerStayIfCheckIn();
 
         $this->view->append( "title", $player->place . "マス目にいます" );
@@ -88,6 +88,7 @@ class Game
     private function turnEnd()
     {
         $this->view->append( "title", "ターン終わり" );
+        $this->game_status = "turn_end";
 
         $this->turnEndEvent();
         $this->checkAllPlayerStayIfCheckIn();
@@ -95,16 +96,29 @@ class Game
         $this->turn++;
     }
 
+
+    private function playerEvent()
+    {
+        if ( $this->player[$this->turn_player]->getThisTurnMoveOrNot() )
+        {
+            $this->eventOccur($this->board->getMap($this->player[$this->turn_player]->getPlace()));
+        }
+    }
     private function turnEndEvent()
     {
         for ( $i = 0; $i < count( $this->player ); $i++ ) {
-            $turn_end_event_names[] = $this->board->map($this->player[$i]);
+            $turn_end_event_names[] = $this->board->getMap($this->player[$i]->getPlace());
         }
-        var_dump( $turn_end_event_names );
         foreach ( $turn_end_event_names as $value ) {
-            $event = EventOccur2::build($value);
-            $event->turn_end($this);
+            $this->eventOccur($value);
         }
+    }
+
+    private function eventOccur($event_name)
+    {
+        $game_status = $this->game_status;
+        $event = EventOccur::build($event_name);
+        $event->$game_status($this);
     }
 
     private function goalAndEnd($goal_player)

@@ -9,10 +9,9 @@ class Assistlast03 implements EventInterface
     }
 
     public function turn_end($game){
-        $Class = new EventFunction( $game );
-        $user_id = $Class->get_last_player();
+        $user_id = EventUtility::get_last_player($game);
         if ( $user_id ){
-            $game->player[$user_id]->place += 3;
+            $game->player[$user_id]->move(3);
             $game->view->append( "text", "ビリの" . $game->player[$user_id]->name . "が3マス進みました" );
         }
     }

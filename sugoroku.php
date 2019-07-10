@@ -29,7 +29,7 @@ require "event/bothertop03.php";
 require "event/check.php";
 require "event/moreprogress.php";
 require "event/goal.php";
-require "event/eventfunction.php";
+require "event/eventUtility.php";
 require "event/noEvent.php";
 
 require "view/viewInterface.php";

@@ -12,7 +12,7 @@ class Player implements PlayerInterface
     }
 
     public function beforeRollDice($game) {
-        $this->this_turn_advance = TRUE;
+        $this->move_this_turn = TRUE;
         $this->checkRest($game);
         $this->checkInCheckPoint($game);
 
@@ -22,7 +22,7 @@ class Player implements PlayerInterface
     {
         if ( $this->rest > 0 ) {
             $this->rest--;
-            $this->this_turn_advance = FALSE;
+            $this->move_this_turn = FALSE;
             $game->view->append( "text", $this->name . "は休みです" );
         }
     }
@@ -30,7 +30,7 @@ class Player implements PlayerInterface
     public function checkInCheckPoint($game)
     {
         if ($this->check_in == true) {
-            $this->this_turn_advance = FALSE;
+            $this->move_this_turn = FALSE;
             $game->view->append("text", "チェックポイントにいます");
             //echo "チェックポイントにいます";
             $this->tryPassCheckPoint($game);
@@ -50,7 +50,7 @@ class Player implements PlayerInterface
 
     public function rollDice($game)
     {
-        if ($this->this_turn_advance == TRUE) {
+        if ( $this->getThisTurnMoveOrNot() ) {
             $steps = 0;
             for ($i = 0; $i < count($game->dice); $i++) {
                 $step = $game->dice[$i]->roll($game);
@@ -77,16 +77,38 @@ class Player implements PlayerInterface
         }
     }
 
-    public function playerEvent($game)
-    {
-        if( $this->this_turn_advance == TRUE ) {
-            $event = EventOccur2::build($game->board->map[$this->place]);
-            $event->player($game);
-        }
-    }
-
     public function Goal($game)
     {
         return ( $this->place >= count( $game->board->map) ) ? TRUE: FALSE;
+    }
+
+    public function move($forward_spaces)
+    {
+        $this->place += $forward_spaces;
+    }
+
+    public function addRestFlag()
+    {
+        $this->rest++;
+    }
+
+    public function backStart()
+    {
+        $this->place = 0;
+    }
+
+    public function getPlace()
+    {
+        return $this->place;
+    }
+
+    public function setPlace($place)
+    {
+        $this->place = $place;
+    }
+
+    public function getThisTurnMoveOrNot()
+    {
+        return $this->move_this_turn;
     }
 }

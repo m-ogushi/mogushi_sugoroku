@@ -5,7 +5,7 @@ class Board
     public function __construct($csv){
         $file = new SplFileObject( $csv ); 
         $file->setFlags(SplFileObject::READ_CSV);
-        $i = 0;
+        $i = 1;
         $check_place = [];
         foreach ($file as $line){
             $map[] = $line[0];
@@ -23,8 +23,8 @@ class Board
         $this->check_place = $check_place;
     }
 
-    public function map(PlayerInterface $player)
+    public function getMap($place)
     {
-        return $this->map[$player->place];
+        return $this->map[$place];
     }
 }

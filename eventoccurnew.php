@@ -1,5 +1,5 @@
 <?php
-class EventOccur2
+class EventOccur
 {
 
     //private $game;

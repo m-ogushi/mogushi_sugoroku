@@ -7,8 +7,7 @@ class Goback02 implements EventInterface
     }
 
     public function player($game){
-        $game = $this->game;
-        $game->player[$game->turn_player]->place -= 2;
+        $game->player[$game->turn_player]->move(-2);
         $game->view->append( "text", "2マス戻りました" );
     }
 

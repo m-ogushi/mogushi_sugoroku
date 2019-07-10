@@ -7,6 +7,12 @@ interface PlayerInterface
     public function tryPassCheckPoint($game);
     public function rollDice($game);
     public function stayIfCheckIn($game);
-    public function playerEvent($game);
     public function Goal($game);
+
+    public function move($forward_spaces);
+    public function addRestFlag();
+    public function backStart();
+
+    public function getPlace();
+    public function setPlace($place);
 }

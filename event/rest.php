@@ -7,7 +7,7 @@ class Rest implements EventInterface
     }
 
     public function player($game){
-        $game->player[$game->turn_player]->rest++;
+        $game->player[$game->turn_player]->addRestFlag();
         $game->view->append( "text", "1回休みです" );
     }
 

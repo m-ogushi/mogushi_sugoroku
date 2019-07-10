@@ -7,7 +7,7 @@ class Check implements EventInterface
     }
 
     public function player($game){
-
+        $game->view->append( "text", "ちょうどチェックポイントに止まりました" );
     }
 
     public function turn_end($game){
