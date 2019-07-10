@@ -13,7 +13,7 @@ class Bothertop03 implements EventInterface
         $user_id = EventUtility::get_top_player($game);
         if ( $user_id ){
             $game->player[$user_id]->move(-3);
-            $game->view->append( "text", "トップの" . $game->player[$user_id]->name . "が3マス戻りました" );
+            $game->view->append( "text", "トップの" . $game->player[$user_id]->getName()  . "が3マス戻りました" );
         }
     }
 }

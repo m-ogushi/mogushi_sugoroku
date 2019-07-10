@@ -41,8 +41,8 @@ $game = Game::getInstance();
 $game->setBoard(new Board('data/board.csv'));
 $game->addPlayer(new Player('Taro',$game ));
 $game->addPlayer(new Player('Jiro',$game ));
-$game->setDice(new Dice( 8 ));
-$game->setDice(new Dice( 6 ));
+$game->addDice(new Dice( 8 ));
+$game->addDice(new Dice( 6 ));
 
 $html = new GameHtml();
 $game->setView(new View($html));

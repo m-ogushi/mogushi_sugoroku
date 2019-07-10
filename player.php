@@ -1,6 +1,13 @@
 <?php
 class Player implements PlayerInterface
 {
+    private $name;
+    private $place;
+    private $rest;
+    private $check_in;
+    private $not_checked;
+    private $move_this_turn;
+
     //コンストラクタ
     public function __construct( $player, $game )
     {
@@ -8,7 +15,7 @@ class Player implements PlayerInterface
         $this->place = 0;
         $this->rest = 0;
         $this->check_in = FALSE;
-        $this->not_checked = $game->board->check_place;
+        $this->not_checked = $game->board->getCheckPlace();
     }
 
     public function beforeRollDice($game) {
@@ -79,7 +86,7 @@ class Player implements PlayerInterface
 
     public function Goal($game)
     {
-        return ( $this->place >= count( $game->board->map) ) ? TRUE: FALSE;
+        return ( $this->place >= $game->board->getGoalPlace() ) ? TRUE: FALSE;
     }
 
     public function move($forward_spaces)
@@ -105,6 +112,11 @@ class Player implements PlayerInterface
     public function setPlace($place)
     {
         $this->place = $place;
+    }
+
+    public function getName()
+    {
+        return $this->name;
     }
 
     public function getThisTurnMoveOrNot()

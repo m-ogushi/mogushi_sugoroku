@@ -1,6 +1,9 @@
 <?php
 class View implements ViewInterface
 {
+    private $contents;
+    private $html;
+
     public function __construct(HtmlInterface $html)
     {
         $this->contents  = [];

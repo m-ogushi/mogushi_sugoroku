@@ -7,7 +7,7 @@ class Goadvance01 implements EventInterface
     }
 
     public function player($game){
-        $game->player[$game->turn_player]->move(1);
+        $game->player[$game->getTurnPlayer()]->move(1);
         $game->view->append( "text", "1マス進みました" );
     }
 

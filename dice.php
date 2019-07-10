@@ -1,6 +1,9 @@
 <?php
 class Dice implements DiceInterface
 {
+    private $min;
+    private $max;
+
     //コンストラクタ
     public function __construct( $planes )
     {

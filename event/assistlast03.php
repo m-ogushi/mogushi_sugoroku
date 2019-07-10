@@ -12,7 +12,7 @@ class Assistlast03 implements EventInterface
         $user_id = EventUtility::get_last_player($game);
         if ( $user_id ){
             $game->player[$user_id]->move(3);
-            $game->view->append( "text", "ビリの" . $game->player[$user_id]->name . "が3マス進みました" );
+            $game->view->append( "text", "ビリの" . $game->player[$user_id]->getName() . "が3マス進みました" );
         }
     }
 }

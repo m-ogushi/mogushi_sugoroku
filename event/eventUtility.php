@@ -10,7 +10,7 @@ class EventUtility
         $player_place = [];
         $player_id = [];
         for ( $i = 0; $i < count( $game->player ); $i++ ){
-            $player_place[] += $game->player[$i]->place;
+            $player_place[] += $game->player[$i]->getPlace();
             $player_id[] = $i;
         }
         array_multisort($player_place, SORT_DESC, $player_id );
@@ -26,7 +26,7 @@ class EventUtility
         $player_place = [];
         $player_id = [];
         for ( $i = 0; $i < count( $game->player ); $i++ ){
-            $player_place[] += $game->player[$i]->place;
+            $player_place[] += $game->player[$i]->getPlace();
             $player_id[] = $i;
         }
         array_multisort($player_place, SORT_ASC, $player_id );

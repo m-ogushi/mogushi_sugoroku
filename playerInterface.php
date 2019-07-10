@@ -5,8 +5,11 @@ interface PlayerInterface
     public function checkRest($game);
     public function checkInCheckPoint($game);
     public function tryPassCheckPoint($game);
+
     public function rollDice($game);
+
     public function stayIfCheckIn($game);
+
     public function Goal($game);
 
     public function move($forward_spaces);
@@ -15,4 +18,6 @@ interface PlayerInterface
 
     public function getPlace();
     public function setPlace($place);
+    public function getName();
+    public function getThisTurnMoveOrNot();
 }

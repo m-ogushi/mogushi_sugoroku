@@ -7,7 +7,7 @@ class Gostart implements EventInterface
     }
 
     public function player($game){
-        $game->player[$game->turn_player]->backStart();
+        $game->player[$game->getTurnPlayer()]->backStart();
         $game->view->append( "text", "スタートに戻りました" );
     }
 
