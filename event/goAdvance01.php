@@ -1,5 +1,5 @@
 <?php
-class Goback01 implements EventInterface
+class Goadvance01 implements EventInterface
 {
     private $game;
     //コンストラクタ
@@ -7,8 +7,8 @@ class Goback01 implements EventInterface
     }
 
     public function player($game){
-        $game->player[$game->getTurnPlayer()]->move(-1);
-        $game->view->append( "text", "1マス戻りました" );
+        $game->getMovingPlayer()->move(1);
+        $game->view->append( "text", "1マス進みました" );
     }
 
     public function turn_end($game){

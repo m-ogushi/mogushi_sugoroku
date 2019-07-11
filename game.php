@@ -16,7 +16,7 @@ class Game
         return $game;
     }
     
-    public function setBoard( $board )
+    public function setBoard(BoardInterface $board )
     {
         $this->board = $board;
     }
@@ -50,7 +50,7 @@ class Game
             $this->turnStart();
             for ( $i = 0; $i < count( $this->player ); $i++ ) {
                 $this->turn_player = $i;
-                $this->eachPlayerTurn();
+                $this->eachPlayerMove();
             }
             $this->turnEnd();
         }
@@ -62,14 +62,14 @@ class Game
         $this->game_status = "player";
     }
 
-    private function eachPlayerTurn()
+    private function eachPlayerMove()
     {
-        $player = $this->player[$this->turn_player];
+        $player = $this->getMovingPlayer();
         $this->view->append( "title", $player->getName() . "の番です" );
 
-        $player->beforeRollDice($this);
+        $this->getMovingPlayer()->beforeRollDice($this);
 
-        $player->rollDice($this);
+        $this->getMovingPlayer()->rollDice($this);
         $this->checkAllPlayerStayIfCheckIn();
 
         $this->playerEvent();
@@ -77,10 +77,7 @@ class Game
 
         $this->view->append( "title", $player->getPlace() . "マス目にいます" );
 
-
-        if ( $player->Goal($this) ){
-            $this->goalAndEnd($player);
-        }
+        $this->checkGoalOrNot();
     }
 
     private function checkAllPlayerStayIfCheckIn()
@@ -103,9 +100,9 @@ class Game
 
     private function playerEvent()
     {
-        if ( $this->player[$this->turn_player]->getThisTurnMoveOrNot() )
+        if ( $this->getMovingPlayer()->getThisTurnMoveOrNot() )
         {
-            $this->eventOccur($this->board->getEventNameFromPlace($this->player[$this->turn_player]->getPlace()));
+            $this->eventOccur($this->board->getEventNameFromPlace($this->getMovingPlayer()->getPlace()));
         }
     }
 
@@ -122,8 +119,15 @@ class Game
     private function eventOccur($event_name)
     {
         $game_status = $this->game_status;
-        $event = EventOccur::build($event_name);
+        $event = getOccurEvent::build($event_name);
         $event->$game_status($this);
+    }
+
+    private function checkGoalOrNot()
+    {
+        if ($this->getMovingPlayer()->checkGoalOrNot($this)) {
+            $this->goalAndEnd($this->getMovingPlayer());
+        }
     }
 
     private function goalAndEnd($goal_player)
@@ -133,8 +137,8 @@ class Game
         exit;
     }
 
-    public function getTurnPlayer()
+    public function getMovingPlayer()
     {
-        return $this->turn_player;
+        return $this->player[$this->turn_player];
     }
 }

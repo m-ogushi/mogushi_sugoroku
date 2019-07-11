@@ -9,14 +9,14 @@ class Replace implements EventInterface
     public function player($game){
         do{
             $replace_oppoment = mt_rand( 0, count( $game->player ) - 1 );
-        } while ( $game->player[$replace_oppoment] == $game->player[$game->getTurnPlayer()] );
+        } while ( $game->player[$replace_oppoment] == $game->getMovingPlayer() );
 
-        $my_place = $game->player[$game->getTurnPlayer()]->getPlace();
+        $my_place = $game->getMovingPlayer()->getPlace();
         $oppoment_place = $game->player[$replace_oppoment]->getPlace();
 
-        $game->player[$game->getTurnPlayer()]->setPlace($oppoment_place);
+        $game->getMovingPlayer()->setPlace($oppoment_place);
         $game->player[$replace_oppoment]->setPlace($my_place);
-        $game->view->append( "text", $game->player[$game->getTurnPlayer()]->getName()  . "さんと" . $game->player[$replace_oppoment]->getName()  . "さんが入れ替わりました" );
+        $game->view->append( "text", $game->getMovingPlayer()->getName()  . "と" . $game->player[$replace_oppoment]->getName()  . "が入れ替わりました" );
     }
 
     public function turn_end($game){

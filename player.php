@@ -74,7 +74,7 @@ class Player implements PlayerInterface
             $next_check_place = min($this->not_checked);
             if ($next_check_place <= $this->place) {
                 if ($next_check_place < $this->place) {
-                    $game->view->append("text", $this->name.'さんは'.$next_check_place.'マス目のチェックポイントでとまります');
+                    $game->view->append("text", $this->name.'は'.$next_check_place.'マス目のチェックポイントでとまります');
                 }
                 $this->check_in = true;
                 $this->place = $next_check_place;
@@ -84,9 +84,9 @@ class Player implements PlayerInterface
         }
     }
 
-    public function Goal($game)
+    public function checkGoalOrNot($game)
     {
-        return ( $this->place >= $game->board->getGoalPlace() ) ? TRUE: FALSE;
+        return ( $this->place >= $game->board->getMapLength() ) ? TRUE: FALSE;
     }
 
     public function move($forward_spaces)

@@ -1,5 +1,5 @@
 <?php
-class Board
+class Board implements BoardInterface
 {
     private $map;
     private $check_place;
@@ -8,7 +8,7 @@ class Board
     public function __construct($csv){
         $file = new SplFileObject( $csv ); 
         $file->setFlags(SplFileObject::READ_CSV);
-        $i = 1;
+        $i = 0;
         $check_place = [];
         foreach ($file as $line){
             $map[] = $line[0];
@@ -28,10 +28,12 @@ class Board
 
     public function getEventNameFromPlace($place)
     {
-        return $this->map[$place];
+        if( $place < $this->getMapLength() ) {
+            return $this->map[$place];
+        }
     }
 
-    public function getGoalPlace()
+    public function getMapLength()
     {
         return count( $this->map );
     }

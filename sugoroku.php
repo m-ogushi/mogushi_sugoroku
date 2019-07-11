@@ -1,5 +1,7 @@
 <?php
 require "game.php";
+
+require "boardInterface.php";
 require "board.php";
 
 require "playerInterface.php";
@@ -8,26 +10,26 @@ require "player.php";
 require "diceInterface.php";
 require "dice.php";
 
-require "eventoccurnew.php";
+require "getOccurEvent.php";
 
 require "eventInterface.php";
-require "event/goadvance01.php";
-require "event/goadvance02.php";
-require "event/goadvance03.php";
-require "event/goback01.php";
-require "event/goback02.php";
+require "event/goAdvance01.php";
+require "event/goAdvance02.php";
+require "event/goAdvance03.php";
+require "event/goBack01.php";
+require "event/goBack02.php";
 require "event/goback03.php";
-require "event/gostart.php";
+require "event/goStart.php";
 require "event/rest.php";
 require "event/replace.php";
-require "event/assistlast01.php";
-require "event/assistlast02.php";
-require "event/assistlast03.php";
-require "event/bothertop01.php";
-require "event/bothertop02.php";
-require "event/bothertop03.php";
+require "event/assistLast01.php";
+require "event/assistLast02.php";
+require "event/assistLast03.php";
+require "event/botherTop01.php";
+require "event/botherTop02.php";
+require "event/botherTop03.php";
 require "event/check.php";
-require "event/moreprogress.php";
+require "event/moreProgress.php";
 require "event/goal.php";
 require "event/eventUtility.php";
 require "event/noEvent.php";

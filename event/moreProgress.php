@@ -6,7 +6,7 @@ class Moreprogress
     }
 
     public function player($game){
-        $game->player[$game->getTurnPlayer()]->rollDice($game);
+        $game->getMovingPlayer()->rollDice($game);
     }
 
     public function turn_end($game){

@@ -10,7 +10,7 @@ interface PlayerInterface
 
     public function stayIfCheckIn($game);
 
-    public function Goal($game);
+    public function checkGoalOrNot($game);
 
     public function move($forward_spaces);
     public function addRestFlag();

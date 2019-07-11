@@ -1,5 +1,5 @@
 <?php
-class Goadvance02 implements EventInterface
+class Goadvance03 implements EventInterface
 {
     private $game;
     //コンストラクタ
@@ -7,8 +7,8 @@ class Goadvance02 implements EventInterface
     }
 
     public function player($game){
-        $game->player[$game->getTurnPlayer()]->move(2);
-        $game->view->append( "text", "2マス進みました" );
+        $game->getMovingPlayer()->move(3);
+        $game->view->append( "text", "3マス進みました" );
     }
 
     public function turn_end($game){
