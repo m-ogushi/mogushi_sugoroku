@@ -3,6 +3,6 @@ interface HtmlInterface
 {
     public function getHead();
     public function getFoot();
-    public function show($game);
+    public function show(Game $game);
     public function contents($contents);
 }

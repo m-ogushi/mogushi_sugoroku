@@ -2,13 +2,16 @@
 class Moreprogress
 {
     //コンストラクタ
-    public function __construct(){
+    public function __construct()
+    {
     }
 
-    public function player($game){
+    public function player(Game $game)
+    {
         $game->getMovingPlayer()->rollDice($game);
     }
 
-    public function turn_end($game){
+    public function turn_end(Game $game)
+    {
     }
 }

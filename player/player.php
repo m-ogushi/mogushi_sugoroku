@@ -16,16 +16,18 @@ class Player implements PlayerInterface
         $this->rest = 0;
         $this->check_in = FALSE;
         $this->not_checked = $game->board->getCheckPlace();
+        $this->move_this_turn = TRUE;
     }
 
-    public function beforeRollDice($game) {
+    public function beforeRollDice(Game $game)
+    {
         $this->move_this_turn = TRUE;
         $this->checkRest($game);
         $this->checkInCheckPoint($game);
 
     }
 
-    public function checkRest($game)
+    public function checkRest(Game $game)
     {
         if ( $this->rest > 0 ) {
             $this->rest--;
@@ -34,17 +36,16 @@ class Player implements PlayerInterface
         }
     }
 
-    public function checkInCheckPoint($game)
+    public function checkInCheckPoint(Game $game)
     {
         if ($this->check_in == true) {
             $this->move_this_turn = FALSE;
             $game->view->append("text", "チェックポイントにいます");
-            //echo "チェックポイントにいます";
             $this->tryPassCheckPoint($game);
         }
     }
 
-    public function tryPassCheckPoint($game)
+    public function tryPassCheckPoint(Game $game)
     {
         if ( in_array($game->dice[0]->roll($game), [1, 2]) ) {
             $this->check_in = false;
@@ -55,20 +56,16 @@ class Player implements PlayerInterface
         }
     }
 
-    public function rollDice($game)
+    public function rollDice(Game $game)
     {
         if ( $this->getThisTurnMoveOrNot() ) {
-            $steps = 0;
-            for ($i = 0; $i < count($game->dice); $i++) {
-                $step = $game->dice[$i]->roll($game);
-                $steps += $step;
-            }
+            $steps = $game->rollAllDice();
             $this->place += $steps;
             $game->view->append( "text", $steps . "マス進みます" );
         }
     }
 
-    public function stayIfCheckIn($game)
+    public function stayIfCheckIn(Game $game)
     {
         if ( !empty($this->not_checked) ) {
             $next_check_place = min($this->not_checked);
@@ -84,7 +81,7 @@ class Player implements PlayerInterface
         }
     }
 
-    public function checkGoalOrNot($game)
+    public function checkGoalOrNot(Game $game)
     {
         return ( $this->place >= $game->board->getMapLength() ) ? TRUE: FALSE;
     }

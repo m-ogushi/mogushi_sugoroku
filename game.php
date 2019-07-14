@@ -6,6 +6,7 @@ class Game
     private $turn;
     private $turn_player;
     private $game_status;
+    public $board;
 
     public static function getInstance()
     {
@@ -108,6 +109,7 @@ class Game
 
     private function turnEndEvent()
     {
+        $turn_end_event_names = [];
         for ( $i = 0; $i < count( $this->player ); $i++ ) {
             $turn_end_event_names[] = $this->board->getEventNameFromPlace($this->player[$i]->getPlace());
         }
@@ -140,5 +142,15 @@ class Game
     public function getMovingPlayer()
     {
         return $this->player[$this->turn_player];
+    }
+
+    public function rollAllDice()
+    {
+        $sum = 0;
+        for ($i = 0; $i < count($this->dice); $i++) {
+            $roll_result = $this->dice[$i]->roll($this);
+            $sum += $roll_result;
+        }
+        return $sum;
     }
 }

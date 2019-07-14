@@ -1,40 +1,41 @@
 <?php
 class EventUtility
 {
-    private $game;
     //コンストラクタ
     public function __construct(){
     }
 
-    public static function get_top_player( $game ){
-        $player_place = [];
-        $player_id = [];
-        for ( $i = 0; $i < count( $game->player ); $i++ ){
-            $player_place[] += $game->player[$i]->getPlace();
-            $player_id[] = $i;
-        }
-        array_multisort($player_place, SORT_DESC, $player_id );
+    public static function getTopPlayer($game )
+    {
+        $player_place = self::getAllPlayerPlace( $game->player );
+
+        asort( $player_place );
 
         if ( $player_place[0] != $player_place[1] ){
-            return $player_id[0];
+            return key( $player_place );
         } else {
             return;
         }
     }
 
-    public static function get_last_player($game){
-        $player_place = [];
-        $player_id = [];
-        for ( $i = 0; $i < count( $game->player ); $i++ ){
-            $player_place[] += $game->player[$i]->getPlace();
-            $player_id[] = $i;
-        }
-        array_multisort($player_place, SORT_ASC, $player_id );
+    public static function getLastPlayer($game)
+    {
+        $player_place = self::getAllPlayerPlace( $game->player );
+        arsort( $player_place );
 
         if ( $player_place[0] != $player_place[1] ){
-            return $player_id[0];
+            return key( $player_place );
         } else {
             return;
         }
+    }
+
+    public static function getAllPlayerPlace($players)
+    {
+        $player_place = [];
+        for ( $i = 0; $i < count( $players ); $i++ ){
+            $player_place[$i] += $players[$i]->getPlace();
+        }
+        return $player_place;
     }
 }

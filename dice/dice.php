@@ -11,7 +11,7 @@ class Dice implements DiceInterface
         $this->max = $planes;
     }
 
-    public function roll($game)
+    public function roll(Game $game)
     {
         $result = mt_rand( $this->min, $this->max );
         $game->view->append( "text", $result . "の目が出た" );
