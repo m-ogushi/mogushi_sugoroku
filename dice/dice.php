@@ -5,10 +5,10 @@ class Dice implements DiceInterface
     private $max;
 
     //コンストラクタ
-    public function __construct( $planes )
+    public function __construct( $faces )
     {
         $this->min = 1;
-        $this->max = $planes;
+        $this->max = $faces;
     }
 
     public function roll(Game $game)
@@ -17,6 +17,5 @@ class Dice implements DiceInterface
         $game->view->append( "text", $result . "の目が出た" );
 
         return $result;
-
     }
 }
