@@ -1,9 +1,4 @@
 <?php
-/*
-TODO
-クラスの責務確認
-動作確認テスト
-*/
 class Board implements BoardInterface
 {
     private $map;

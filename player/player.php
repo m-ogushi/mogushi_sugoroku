@@ -1,4 +1,5 @@
 <?php
+
 class Player implements PlayerInterface
 {
     private $name;
@@ -9,54 +10,53 @@ class Player implements PlayerInterface
     private $move_this_turn;
 
     //コンストラクタ
-    public function __construct( $player, $game )
+    public function __construct ( $player, $game )
     {
-        $this->name  = $player;
+        $this->name = $player;
         $this->place = 0;
         $this->rest = 0;
-        $this->check_in = FALSE;
+        $this->check_in = false;
         $this->not_checked = $game->board->getCheckPlace();
-        $this->move_this_turn = TRUE;
+        $this->move_this_turn = true;
     }
 
-    public function beforeRollDice(Game $game)
+    public function beforeRollDice ( Game $game )
     {
-        $this->move_this_turn = TRUE;
-        $this->checkRest($game);
-        $this->checkInCheckPoint($game);
-
+        $this->move_this_turn = true;
+        $this->checkRest( $game );
+        $this->checkInCheckPoint( $game );
     }
 
-    public function checkRest(Game $game)
+    public function checkRest ( Game $game )
     {
         if ( $this->rest > 0 ) {
             $this->rest--;
-            $this->move_this_turn = FALSE;
+            $this->move_this_turn = false;
             $game->view->append( "text", $this->name . "は休みです" );
         }
     }
 
-    public function checkInCheckPoint(Game $game)
+    public function checkInCheckPoint ( Game $game )
     {
-        if ($this->check_in == true) {
-            $this->move_this_turn = FALSE;
-            $game->view->append("text", "チェックポイントにいます");
-            $this->tryPassCheckPoint($game);
+        if ( $this->check_in == true ) {
+            $this->move_this_turn = false;
+            $game->view->append( "text", "チェックポイントにいます" );
+            $this->tryPassCheckPoint( $game );
         }
     }
 
-    public function tryPassCheckPoint(Game $game)
+    public function tryPassCheckPoint ( Game $game )
     {
-        if ( in_array($game->dice[0]->roll($game), [1, 2]) ) {
+        if ( in_array( $game->dice[0]->roll( $game ), [ 1, 2 ] ) ) {
             $this->check_in = false;
-            array_shift($this->not_checked);
+            array_shift( $this->not_checked );
             $game->view->append( "text", "これからすすめます" );
         } else {
             $game->view->append( "text", "まだ進めません" );
         }
     }
 
-    public function rollDice(Game $game)
+    public function rollDice ( Game $game )
     {
         if ( $this->getThisTurnMoveOrNot() ) {
             $steps = $game->rollAllDice();
@@ -65,13 +65,13 @@ class Player implements PlayerInterface
         }
     }
 
-    public function stayIfCheckIn(Game $game)
+    public function stayIfCheckIn ( Game $game )
     {
-        if ( !empty($this->not_checked) ) {
-            $next_check_place = min($this->not_checked);
-            if ($next_check_place <= $this->place) {
-                if ($next_check_place < $this->place) {
-                    $game->view->append("text", $this->name.'は'.$next_check_place.'マス目のチェックポイントでとまります');
+        if ( ! empty( $this->not_checked ) ) {
+            $next_check_place = min( $this->not_checked );
+            if ( $next_check_place <= $this->place ) {
+                if ( $next_check_place < $this->place ) {
+                    $game->view->append( "text", $this->name . 'は' . $next_check_place . 'マス目のチェックポイントでとまります' );
                 }
                 $this->check_in = true;
                 $this->place = $next_check_place;
@@ -81,42 +81,42 @@ class Player implements PlayerInterface
         }
     }
 
-    public function checkGoalOrNot(Game $game)
+    public function checkGoalOrNot ( Game $game )
     {
-        return ( $this->place >= $game->board->getMapLength() ) ? TRUE: FALSE;
+        return ( $this->place >= $game->board->getMapLength() ) ? true : false;
     }
 
-    public function move($forward_spaces)
+    public function move ( $forward_spaces )
     {
         $this->place += $forward_spaces;
     }
 
-    public function addRestFlag()
+    public function addRestFlag ()
     {
         $this->rest++;
     }
 
-    public function backStart()
+    public function backStart ()
     {
         $this->place = 0;
     }
 
-    public function getPlace()
+    public function getPlace ()
     {
         return $this->place;
     }
 
-    public function setPlace($place)
+    public function setPlace ( $place )
     {
         $this->place = $place;
     }
 
-    public function getName()
+    public function getName ()
     {
         return $this->name;
     }
 
-    public function getThisTurnMoveOrNot()
+    public function getThisTurnMoveOrNot ()
     {
         return $this->move_this_turn;
     }

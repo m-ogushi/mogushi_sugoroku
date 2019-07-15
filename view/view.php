@@ -1,28 +1,28 @@
 <?php
+
 class View implements ViewInterface
 {
     private $contents;
     private $html;
 
-    public function __construct()
+    public function __construct ()
     {
-        $this->contents  = [];
-        $this->html      = new GameHtml();
+        $this->contents = [];
+        $this->html = new GameHtml();
     }
 
-    public function append( $type, $context )
+    public function append ( $type, $context )
     {
-        $this->contents[] = array( $type => $context );
+        $this->contents[] = [ $type => $context ];
     }
 
-    public function html()
+    public function html ()
     {
         return $this->html;
     }
 
-    public function getContent()
+    public function getContent ()
     {
         return $this->contents;
     }
-
 }

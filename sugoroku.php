@@ -41,11 +41,11 @@ require "html/htmlInterface.php";
 require "html/gameHtml.php";
 
 $game = Game::getInstance();
-$game->setBoard(new Board('board/board.csv'));
-$game->addPlayer(new Player('Taro',$game ));
-$game->addPlayer(new Player('Jiro',$game ));
-$game->addDice(new Dice( 8 ));
-$game->addDice(new Dice( 6 ));
+$game->setBoard( new Board( 'board/board.csv' ) );
+$game->addPlayer( new Player( 'Taro', $game ) );
+$game->addPlayer( new Player( 'Jiro', $game ) );
+$game->addDice( new Dice( 8 ) );
+$game->addDice( new Dice( 6 ) );
 
-$game->setView(new View());
+$game->setView( new View() );
 $game->start();
