@@ -7,6 +7,9 @@ class Game
     private $turn_player;
     private $game_status;
     public $board;
+    public $player;
+    public $dice;
+    public $view;
 
     public static function getInstance()
     {
@@ -16,7 +19,7 @@ class Game
         }
         return $game;
     }
-    
+
     public function setBoard(BoardInterface $board )
     {
         $this->board = $board;
@@ -65,8 +68,7 @@ class Game
 
     private function eachPlayerMove()
     {
-        $player = $this->getMovingPlayer();
-        $this->view->append( "title", $player->getName() . "の番です" );
+        $this->view->append( "title", $this->getMovingPlayer()->getName() . "の番です" );
 
         $this->getMovingPlayer()->beforeRollDice($this);
 
@@ -76,9 +78,9 @@ class Game
         $this->playerEvent();
         $this->checkAllPlayerStayIfCheckIn();
 
-        $this->view->append( "title", $player->getPlace() . "マス目にいます" );
+        $this->view->append( "title", $this->getMovingPlayer()->getPlace() . "マス目にいます" );
 
-        $this->checkGoalOrNot();
+        $this->checkPlayerGoalOrNot();
     }
 
     private function checkAllPlayerStayIfCheckIn()
@@ -125,7 +127,7 @@ class Game
         $event->$game_status($this);
     }
 
-    private function checkGoalOrNot()
+    private function checkPlayerGoalOrNot()
     {
         if ($this->getMovingPlayer()->checkGoalOrNot($this)) {
             $this->goalAndEnd($this->getMovingPlayer());
@@ -135,8 +137,13 @@ class Game
     private function goalAndEnd($goal_player)
     {
         $this->view->append( "text", $goal_player->getName() . "のかち!");
-        //$this->view->html()->show($this);
+        $this->showGameHtml();
         exit;
+    }
+
+    private function showGameHtml()
+    {
+        $this->view->html()->show($this);
     }
 
     public function getMovingPlayer()

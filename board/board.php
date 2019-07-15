@@ -45,6 +45,6 @@ class Board implements BoardInterface
 
     public function getCheckPlace()
     {
-        $this->check_place;
+        return $this->check_place;
     }
 }

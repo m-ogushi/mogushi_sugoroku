@@ -18,7 +18,7 @@ require "event/goAdvance02.php";
 require "event/goAdvance03.php";
 require "event/goBack01.php";
 require "event/goBack02.php";
-require "event/goback03.php";
+require "event/goBack03.php";
 require "event/goStart.php";
 require "event/rest.php";
 require "event/replace.php";
