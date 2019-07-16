@@ -42,7 +42,7 @@ class Game
 
     public function start ()
     {
-        $this->turn = 1;
+        $this->turn = 0;
         $this->match();
     }
 
@@ -51,7 +51,7 @@ class Game
 
         while ( true ) {
             $this->turnStart();
-            for ( $i = 0; $i < count( $this->player ); $i++ ) {
+            for ( $i = 0; $i < $this->numberOfAllPlayers(); $i++ ) {
                 $this->turn_player = $i;
                 $this->eachPlayerMove();
             }
@@ -61,6 +61,7 @@ class Game
 
     private function turnStart ()
     {
+        $this->turn++;
         $this->view->append( "title", $this->turn . "ターン目です" );
         $this->game_status = "player";
     }
@@ -84,7 +85,7 @@ class Game
 
     private function checkAllPlayerStayIfCheckIn ()
     {
-        for ( $i = 0; $i < count( $this->player ); $i++ ) {
+        for ( $i = 0; $i < $this->numberOfAllPlayers(); $i++ ) {
             $this->player[$i]->stayIfCheckIn( $this );
         }
     }
@@ -103,14 +104,12 @@ class Game
 
         $this->turnEndEvent();
         $this->checkAllPlayerStayIfCheckIn();
-
-        $this->turn++;
     }
 
     private function turnEndEvent ()
     {
         $turn_end_event_names = [];
-        for ( $i = 0; $i < count( $this->player ); $i++ ) {
+        for ( $i = 0; $i < $this->numberOfAllPlayers(); $i++ ) {
             $turn_end_event_names[] = $this->board->getEventNameFromPlace( $this->player[$i]->getPlace() );
         }
         foreach ( $turn_end_event_names as $value ) {
@@ -158,5 +157,20 @@ class Game
         }
 
         return $sum;
+    }
+
+    public function numberOfAllPlayers ()
+    {
+        return count( $this->player );
+    }
+
+    public function getAllPlayerPlace ()
+    {
+        $player_place = [];
+        for ( $i = 0; $i < $this->numberOfAllPlayers(); $i++ ) {
+            $player_place[] += $this->player[$i]->getPlace();
+        }
+
+        return $player_place;
     }
 }

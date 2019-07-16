@@ -9,7 +9,7 @@ class EventUtility
 
     public static function getTopPlayer ( Game $game )
     {
-        $player_place = self::getAllPlayerPlace( $game->player );
+        $player_place = $game->getAllPlayerPlace();
 
         arsort( $player_place );
 
@@ -22,7 +22,7 @@ class EventUtility
 
     public static function getLastPlayer ( Game $game )
     {
-        $player_place = self::getAllPlayerPlace( $game->player );
+        $player_place = $game->getAllPlayerPlace();
 
         asort( $player_place );
 
@@ -31,15 +31,5 @@ class EventUtility
         } else {
             return;
         }
-    }
-
-    public static function getAllPlayerPlace ( $players )
-    {
-        $player_place = [];
-        for ( $i = 0; $i < count( $players ); $i++ ) {
-            $player_place[] += $players[$i]->getPlace();
-        }
-
-        return $player_place;
     }
 }

@@ -1,7 +1,10 @@
 <?php
+
 interface BoardInterface
 {
-    public function getEventNameFromPlace($place);
-    public function getMapLength();
-    public function getCheckPlace();
+    public function getEventNameFromPlace ( $place );
+
+    public function getMapLength ();
+
+    public function getCheckPlace ();
 }

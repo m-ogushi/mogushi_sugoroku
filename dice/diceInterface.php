@@ -1,5 +1,6 @@
 <?php
+
 interface DiceInterface
 {
-    public function roll(Game $game);
+    public function roll ( Game $game );
 }

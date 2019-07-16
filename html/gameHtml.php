@@ -13,7 +13,7 @@ class GameHtml implements HtmlInterface
         $this->getFoot();
     }
 
-    public function getHead ()
+    private function getHead ()
     {
         ob_start();
         require( "head.html" );
@@ -21,7 +21,7 @@ class GameHtml implements HtmlInterface
         ob_end_clean();
     }
 
-    public function getFoot ()
+    private function getFoot ()
     {
         ob_start();
         require( "foot.html" );
@@ -40,7 +40,7 @@ class GameHtml implements HtmlInterface
         return;
     }
 
-    public function contents ( $contents )
+    private function contents ( $contents )
     {
         ob_start();
         foreach ( $contents as $content ) {

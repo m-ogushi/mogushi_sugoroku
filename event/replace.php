@@ -12,7 +12,7 @@ class Replace implements EventInterface
     public function player ( Game $game )
     {
         do {
-            $replace_oppoment = mt_rand( 0, count( $game->player ) - 1 );
+            $replace_oppoment = mt_rand( 0, $game->numberOfAllPlayers() - 1 );
         } while ( $game->player[$replace_oppoment] == $game->getMovingPlayer() );
 
         $my_place = $game->getMovingPlayer()->getPlace();
