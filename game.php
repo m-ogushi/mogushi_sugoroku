@@ -89,6 +89,13 @@ class Game
         }
     }
 
+    private function playerEvent ()
+    {
+        if ( $this->getMovingPlayer()->getThisTurnMoveOrNot() ) {
+            $this->eventOccur( $this->board->getEventNameFromPlace( $this->getMovingPlayer()->getPlace() ) );
+        }
+    }
+
     private function turnEnd ()
     {
         $this->view->append( "title", "ターン終わり" );
@@ -98,13 +105,6 @@ class Game
         $this->checkAllPlayerStayIfCheckIn();
 
         $this->turn++;
-    }
-
-    private function playerEvent ()
-    {
-        if ( $this->getMovingPlayer()->getThisTurnMoveOrNot() ) {
-            $this->eventOccur( $this->board->getEventNameFromPlace( $this->getMovingPlayer()->getPlace() ) );
-        }
     }
 
     private function turnEndEvent ()

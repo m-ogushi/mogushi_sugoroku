@@ -4,12 +4,6 @@ interface PlayerInterface
 {
     public function beforeRollDice ( Game $game );
 
-    public function checkRest ( Game $game );
-
-    public function checkInCheckPoint ( Game $game );
-
-    public function tryPassCheckPoint ( Game $game );
-
     public function rollDice ( Game $game );
 
     public function stayIfCheckIn ( Game $game );

@@ -27,7 +27,7 @@ class Player implements PlayerInterface
         $this->checkInCheckPoint( $game );
     }
 
-    public function checkRest ( Game $game )
+    private function checkRest ( Game $game )
     {
         if ( $this->rest > 0 ) {
             $this->rest--;
@@ -36,7 +36,7 @@ class Player implements PlayerInterface
         }
     }
 
-    public function checkInCheckPoint ( Game $game )
+    private function checkInCheckPoint ( Game $game )
     {
         if ( $this->check_in == true ) {
             $this->move_this_turn = false;
@@ -45,7 +45,7 @@ class Player implements PlayerInterface
         }
     }
 
-    public function tryPassCheckPoint ( Game $game )
+    private function tryPassCheckPoint ( Game $game )
     {
         if ( in_array( $game->dice[0]->roll( $game ), [ 1, 2 ] ) ) {
             $this->check_in = false;
