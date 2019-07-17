@@ -1,18 +1,18 @@
 <?php
 require "game.php";
 
-require "board/boardInterface.php";
+require "board/interface.php";
 require "board/board.php";
 
-require "player/playerInterface.php";
+require "player/interface.php";
 require "player/player.php";
 
-require "dice/diceInterface.php";
+require "dice/interface.php";
 require "dice/dice.php";
 
 require "getOccurEvent.php";
 
-require "event/eventInterface.php";
+require "event/interface.php";
 require "event/goAdvance01.php";
 require "event/goAdvance02.php";
 require "event/goAdvance03.php";
@@ -34,10 +34,10 @@ require "event/goal.php";
 require "event/eventUtility.php";
 require "event/noEvent.php";
 
-require "view/viewInterface.php";
+require "view/interface.php";
 require "view/view.php";
 
-require "html/htmlInterface.php";
+require "html/interface.php";
 require "html/gameHtml.php";
 
 $game = Game::getInstance();
