@@ -2,7 +2,6 @@
 
 class getOccurEvent
 {
-    //private $game;
     //コンストラクタ
     public function __construct ()
     {
