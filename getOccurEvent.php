@@ -8,10 +8,10 @@ class getOccurEvent
     {
     }
 
-    public static function build ( $place )
+    public static function build ( $event_name )
     {
-        if ( ! empty( $place ) ) {
-            return $Class = new $place();
+        if ( ! empty( $event_name ) ) {
+            return $Class = new $event_name();
         } else {
             return $Class = new noEvent();
         }
