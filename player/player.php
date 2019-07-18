@@ -16,7 +16,7 @@ class Player implements PlayerInterface
         $this->place = 0;
         $this->rest = 0;
         $this->check_in = false;
-        $this->not_checked = $game->board->getCheckPlace();
+        $this->not_checked = $game->board->getCheckPlaces();
         $this->move_this_turn = true;
     }
 

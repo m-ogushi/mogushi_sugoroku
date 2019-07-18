@@ -6,5 +6,5 @@ interface BoardInterface
 
     public function getMapLength ();
 
-    public function getCheckPlace ();
+    public function getCheckPlaces ();
 }

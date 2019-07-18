@@ -47,5 +47,5 @@ $game->addPlayer( new Player( 'Jiro', $game ) );
 $game->addDice( new Dice( 8 ) );
 $game->addDice( new Dice( 6 ) );
 
-$game->setView( new View() );
+$game->setView( new View( new GameHtml() ) );
 $game->start();

@@ -5,10 +5,10 @@ class View implements ViewInterface
     private $contents;
     private $html;
 
-    public function __construct ()
+    public function __construct ( HtmlInterface $html )
     {
         $this->contents = [];
-        $this->html = new GameHtml();
+        $this->html = $html;
     }
 
     public function append ( $type, $context )

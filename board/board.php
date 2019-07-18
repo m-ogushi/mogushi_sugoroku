@@ -3,7 +3,7 @@
 class Board implements BoardInterface
 {
     private $map;
-    private $check_place;
+    private $check_places;
 
     //コンストラクタ
     public function __construct ( $csv )
@@ -25,7 +25,7 @@ class Board implements BoardInterface
             $i++;
         }
         $this->map = $map;
-        $this->check_place = $check_place;
+        $this->check_places = $check_place;
     }
 
     public function getEventNameFromPlace ( $place )
@@ -40,8 +40,8 @@ class Board implements BoardInterface
         return count( $this->map );
     }
 
-    public function getCheckPlace ()
+    public function getCheckPlaces ()
     {
-        return $this->check_place;
+        return $this->check_places;
     }
 }
