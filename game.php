@@ -5,11 +5,11 @@ class Game
     private static $game;
     private $turn;
     private $turn_player;
-    private $game_status;
     public $board;
     public $player;
     public $dice;
     public $view;
+    private $event;
 
     public static function getInstance ()
     {
@@ -40,6 +40,11 @@ class Game
         $this->view = $view;
     }
 
+    public function setEventType ( EventInterface $event )
+    {
+        $this->event = $event;
+    }
+
     public function start ()
     {
         $this->turn = 0;
@@ -63,7 +68,6 @@ class Game
     {
         $this->turn++;
         $this->view->append( "title", $this->turn . "ターン目です" );
-        $this->game_status = "player";
     }
 
     private function eachPlayerMove ()
@@ -75,7 +79,7 @@ class Game
         $this->getMovingPlayer()->rollDice( $this );
         $this->checkAllPlayerStayIfCheckIn();
 
-        $this->playerEvent();
+        $this->event->player( $this );
         $this->checkAllPlayerStayIfCheckIn();
 
         $this->view->append( "title", $this->getMovingPlayer()->getPlace() . "マス目にいます" );
@@ -90,38 +94,12 @@ class Game
         }
     }
 
-    private function playerEvent ()
-    {
-        if ( $this->getMovingPlayer()->getThisTurnMoveOrNot() ) {
-            $this->eventOccur( $this->board->getEventNameFromPlace( $this->getMovingPlayer()->getPlace() ) );
-        }
-    }
-
     private function turnEnd ()
     {
         $this->view->append( "title", "ターン終わり" );
-        $this->game_status = "turn_end";
 
-        $this->turnEndEvent();
+        $this->event->turn_end( $this );
         $this->checkAllPlayerStayIfCheckIn();
-    }
-
-    private function turnEndEvent ()
-    {
-        $turn_end_event_names = [];
-        for ( $i = 0; $i < $this->numberOfAllPlayers(); $i++ ) {
-            $turn_end_event_names[] = $this->board->getEventNameFromPlace( $this->player[$i]->getPlace() );
-        }
-        foreach ( $turn_end_event_names as $value ) {
-            $this->eventOccur( $value );
-        }
-    }
-
-    private function eventOccur ( $event_name )
-    {
-        $game_status = $this->game_status;
-        $event = getOccurEvent::build( $event_name );
-        $event->$game_status( $this );
     }
 
     private function checkPlayerGoalOrNot ()
@@ -155,7 +133,6 @@ class Game
             $roll_result = $this->dice[$i]->roll( $this );
             $sum += $roll_result;
         }
-
         return $sum;
     }
 
@@ -170,7 +147,6 @@ class Game
         for ( $i = 0; $i < $this->numberOfAllPlayers(); $i++ ) {
             $player_place[] += $this->player[$i]->getPlace();
         }
-
         return $player_place;
     }
 }

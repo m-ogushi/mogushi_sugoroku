@@ -10,9 +10,8 @@ require "player/player.php";
 require "dice/interface.php";
 require "dice/dice.php";
 
-require "getOccurEvent.php";
-
 require "event/interface.php";
+require "event/getOccurEvent.php";
 require "event/goAdvance01.php";
 require "event/goAdvance02.php";
 require "event/goAdvance03.php";
@@ -48,4 +47,5 @@ $game->addDice( new Dice( 8 ) );
 $game->addDice( new Dice( 6 ) );
 
 $game->setView( new View( new GameHtml() ) );
+$game->setEventType( new getOccurEvent() );
 $game->start();
