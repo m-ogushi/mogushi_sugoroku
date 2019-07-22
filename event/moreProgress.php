@@ -1,6 +1,6 @@
 <?php
 
-class Moreprogress
+class Moreprogress implements EventInterface
 {
     //コンストラクタ
     public function __construct ()

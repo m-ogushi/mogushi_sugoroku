@@ -6,7 +6,9 @@ class getOccurEvent implements EventInterface
     {
         if ( $game->getMovingPlayer()->getThisTurnMoveOrNot() ) {
             $event = $this->get( $game->board->getEventNameFromPlace( $game->getMovingPlayer()->getPlace() ) );
-            $event->player( $game );
+            if ( $event instanceof EventInterface ) {
+                $event->player( $game );
+            }
         }
     }
 
@@ -18,7 +20,10 @@ class getOccurEvent implements EventInterface
         }
         foreach ( $turn_end_event_names as $value ) {
             $event = $this->get( $value );
-            $event->turn_end( $game );
+            $game->view->append( "text", $value . "です" );
+            if ( $event instanceof EventInterface ) {
+                $event->turn_end( $game );
+            }
         }
     }
 
