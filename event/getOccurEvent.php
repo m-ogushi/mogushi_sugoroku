@@ -20,7 +20,6 @@ class getOccurEvent implements EventInterface
         }
         foreach ( $turn_end_event_names as $value ) {
             $event = $this->get( $value );
-            $game->view->append( "text", $value . "です" );
             if ( $event instanceof EventInterface ) {
                 $event->turn_end( $game );
             }

@@ -14,7 +14,7 @@ class Assistlast03 implements EventInterface
     public function turn_end ( Game $game )
     {
         $user_id = EventUtility::getLastPlayer( $game );
-        if ( $user_id ) {
+        if ( is_int( $user_id ) ) {
             $game->player[$user_id]->move( 3 );
             $game->view->append( "text", "ビリの" . $game->player[$user_id]->getName() . "が3マス進みました" );
         }

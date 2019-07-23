@@ -13,8 +13,11 @@ class EventUtility
 
         arsort( $player_place );
 
-        if ( $player_place[0] != $player_place[1] ) {
-            return key( $player_place );
+        $first_user_id = ( array_slice( $player_place, 0, 1, true ) );
+        $second_user_id = ( array_slice( $player_place, 1, 1, true )  );
+
+        if ( reset( $first_user_id ) != reset( $second_user_id ) ) {
+            return key( $first_user_id );
         } else {
             return;
         }
@@ -26,8 +29,11 @@ class EventUtility
 
         asort( $player_place );
 
-        if ( $player_place[0] != $player_place[1] ) {
-            return key( $player_place );
+        $first_user_id = ( array_slice( $player_place, 0, 1, true ) );
+        $second_user_id = ( array_slice( $player_place, 1, 1, true )  );
+
+        if ( reset( $first_user_id ) != reset( $second_user_id ) ) {
+            return key( $first_user_id );
         } else {
             return;
         }
