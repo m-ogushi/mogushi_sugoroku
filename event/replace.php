@@ -23,7 +23,7 @@ class Replace implements EventInterface
         $game->view->append( "text", $game->getMovingPlayer()->getName() . "と" . $game->player[$replace_oppoment]->getName() . "が入れ替わりました" );
     }
 
-    public function turn_end ( Game $game )
+    public function turnEnd ( Game $game )
     {
     }
 }

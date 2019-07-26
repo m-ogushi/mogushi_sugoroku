@@ -13,7 +13,7 @@ class Moreprogress implements EventInterface
         $game->getMovingPlayer()->rollDice( $game );
     }
 
-    public function turn_end ( Game $game )
+    public function turnEnd ( Game $game )
     {
     }
 }

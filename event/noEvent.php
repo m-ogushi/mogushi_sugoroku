@@ -7,7 +7,7 @@ class noEvent implements EventInterface
         $game->view->append( "text", "イベントはありません" );
     }
 
-    public function turn_end ( Game $game )
+    public function turnEnd ( Game $game )
     {
         $game->view->append( "text", "イベントはありません" );
     }

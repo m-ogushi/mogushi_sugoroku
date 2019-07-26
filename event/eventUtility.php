@@ -1,4 +1,5 @@
 <?php
+require "commonUtility.php";
 
 class EventUtility
 {
@@ -9,33 +10,25 @@ class EventUtility
 
     public static function getTopPlayer ( Game $game )
     {
-        $player_place = $game->getAllPlayerPlace();
+        $player_id_place = $game->getAllPlayerPlace();
 
-        arsort( $player_place );
+        arsort( $player_id_place );
 
-        $first_user_id = ( array_slice( $player_place, 0, 1, true ) );
-        $second_user_id = ( array_slice( $player_place, 1, 1, true )  );
-
-        if ( reset( $first_user_id ) != reset( $second_user_id ) ) {
-            return key( $first_user_id );
-        } else {
-            return;
+        $first_player_id_place = CommonUtility::getFirstCombinationInArray( $player_id_place );
+        if ( $first_player_id_place ){
+            return key( $first_player_id_place );
         }
     }
 
     public static function getLastPlayer ( Game $game )
     {
-        $player_place = $game->getAllPlayerPlace();
+        $player_id_place = $game->getAllPlayerPlace();
 
-        asort( $player_place );
+        asort( $player_id_place );
 
-        $first_user_id = ( array_slice( $player_place, 0, 1, true ) );
-        $second_user_id = ( array_slice( $player_place, 1, 1, true )  );
-
-        if ( reset( $first_user_id ) != reset( $second_user_id ) ) {
-            return key( $first_user_id );
-        } else {
-            return;
+        $last_player_id_place = CommonUtility::getFirstCombinationInArray( $player_id_place );
+        if ( $last_player_id_place ){
+            return key( $last_player_id_place );
         }
     }
 }

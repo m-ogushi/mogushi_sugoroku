@@ -12,7 +12,7 @@ class getOccurEvent implements EventInterface
         }
     }
 
-    public function turn_end ( Game $game )
+    public function turnEnd ( Game $game )
     {
         $turn_end_event_names = [];
         for ( $i = 0; $i < $game->numberOfAllPlayers(); $i++ ) {
@@ -21,7 +21,7 @@ class getOccurEvent implements EventInterface
         foreach ( $turn_end_event_names as $value ) {
             $event = $this->get( $value );
             if ( $event instanceof EventInterface ) {
-                $event->turn_end( $game );
+                $event->turnEnd( $game );
             }
         }
     }

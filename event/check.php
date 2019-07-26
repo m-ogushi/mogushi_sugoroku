@@ -13,7 +13,7 @@ class Check implements EventInterface
     {
     }
 
-    public function turn_end ( Game $game )
+    public function turnEnd ( Game $game )
     {
     }
 }

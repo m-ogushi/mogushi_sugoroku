@@ -11,7 +11,7 @@ class Assistlast01 implements EventInterface
     {
     }
 
-    public function turn_end ( Game $game )
+    public function turnEnd ( Game $game )
     {
         $user_id = EventUtility::getLastPlayer( $game );
         if ( is_int( $user_id ) ) {

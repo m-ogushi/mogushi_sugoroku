@@ -15,7 +15,7 @@ class Goadvance02 implements EventInterface
         $game->view->append( "text", "2マス進みました" );
     }
 
-    public function turn_end ( Game $game )
+    public function turnEnd ( Game $game )
     {
     }
 }

@@ -15,7 +15,7 @@ class Goback03 implements EventInterface
         $game->view->append( "text", "3マス戻りました" );
     }
 
-    public function turn_end ( Game $game )
+    public function turnEnd ( Game $game )
     {
     }
 }

@@ -15,7 +15,7 @@ class Gostart implements EventInterface
         $game->view->append( "text", "スタートに戻りました" );
     }
 
-    public function turn_end ( Game $game )
+    public function turnEnd ( Game $game )
     {
     }
 }

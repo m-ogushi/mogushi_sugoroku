@@ -11,7 +11,7 @@ class Bothertop03 implements EventInterface
     {
     }
 
-    public function turn_end ( Game $game )
+    public function turnEnd ( Game $game )
     {
         $user_id = EventUtility::getTopPlayer( $game );
         if ( is_int( $user_id ) ) {

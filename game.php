@@ -9,7 +9,7 @@ class Game
     public $player;
     public $dice;
     public $view;
-    private $event;
+    private $event_type;
 
     public static function getInstance ()
     {
@@ -42,7 +42,7 @@ class Game
 
     public function setEventType ( EventInterface $event )
     {
-        $this->event = $event;
+        $this->event_type = $event;
     }
 
     public function start ()
@@ -79,7 +79,7 @@ class Game
         $this->getMovingPlayer()->rollDice( $this );
         $this->checkAllPlayerStayIfCheckIn();
 
-        $this->event->player( $this );
+        $this->event_type->player( $this );
         $this->checkAllPlayerStayIfCheckIn();
 
         $this->view->append( "title", $this->getMovingPlayer()->getPlace() . "マス目にいます" );
@@ -98,7 +98,7 @@ class Game
     {
         $this->view->append( "title", "ターン終わり" );
 
-        $this->event->turn_end( $this );
+        $this->event_type->turnEnd( $this );
         $this->checkAllPlayerStayIfCheckIn();
     }
 
