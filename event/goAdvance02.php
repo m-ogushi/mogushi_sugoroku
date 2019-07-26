@@ -1,6 +1,6 @@
 <?php
 
-class Rest implements EventInterface
+class Goadvance02 implements EventInterface
 {
     private $game;
 
@@ -11,8 +11,8 @@ class Rest implements EventInterface
 
     public function player ( Game $game )
     {
-        $game->getMovingPlayer()->addRestFlag();
-        $game->view->append( "text", "1回休みです" );
+        $game->getMovingPlayer()->move( 2 );
+        $game->view->append( "text", "2マス進みました" );
     }
 
     public function turnEnd ( Game $game )

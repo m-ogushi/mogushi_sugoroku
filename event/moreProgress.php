@@ -1,9 +1,7 @@
 <?php
 
-class Rest implements EventInterface
+class Moreprogress implements EventInterface
 {
-    private $game;
-
     //コンストラクタ
     public function __construct ()
     {
@@ -11,8 +9,8 @@ class Rest implements EventInterface
 
     public function player ( Game $game )
     {
-        $game->getMovingPlayer()->addRestFlag();
-        $game->view->append( "text", "1回休みです" );
+        $game->view->append( "text", "もう一回進めます" );
+        $game->getMovingPlayer()->rollDice( $game );
     }
 
     public function turnEnd ( Game $game )

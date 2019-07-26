@@ -1,120 +1,152 @@
 <?php
+
 class Game
 {
     private static $game;
-    public static function getInstance()
+    private $turn;
+    private $turn_player;
+    public $board;
+    public $player;
+    public $dice;
+    public $view;
+    private $event_type;
+
+    public static function getInstance ()
     {
-        if( !isset($game) )
-        {
+        if ( ! isset( $game ) ) {
             $game = new Game();
         }
+
         return $game;
     }
-    
-    public function setBoard( $board )
+
+    public function setBoard ( BoardInterface $board )
     {
         $this->board = $board;
     }
-    
-    public function addPlayer( $player )
+
+    public function addPlayer ( PlayerInterface $player )
     {
-        $this->player[] = $player;    
-    }
-    public function setDice( $dice )
-    {
-        $this->dice = $dice;
-    }
-    
-    public function addEvent( $event )
-    {
-        $this->event = $event;
+        $this->player[] = $player;
     }
 
-    public function start()
+    public function addDice ( DiceInterface $dice )
     {
-        $this->turn = 1;
+        $this->dice[] = $dice;
+    }
+
+    public function setView ( ViewInterface $view )
+    {
+        $this->view = $view;
+    }
+
+    public function setEventType ( EventInterface $event )
+    {
+        $this->event_type = $event;
+    }
+
+    public function start ()
+    {
+        $this->turn = 0;
         $this->match();
     }
-    public function match()
-    {
-        
-        while ( true )
-        {
-            echo PHP_EOL . $this->turn . "ターン目です";
-            for ( $i = 0; $i < count( $this->player ); $i++ )
-            {
-                echo PHP_EOL . $this->player[$i]->name . 'の番です';
-               
-                if ( $this->player[$i]->rest > 0 )
-                {
-                    $this->player[$i]->rest--;
-                    echo $this->player[$i]->name . 'は休みです';
-                }
-                else
-                { 
-                    $this->progress( $this->player[$i] );
-                    echo $this->player[$i]->place . "マス目にいます";
-                    $this->event( $this->player[$i], $this->board, $this->player );
-                } 
 
-                if ( $this->player[$i]->place > count( $this->board->map ) )
-                {
-                    $this->end( $this->player[$i]->name );
-                }
+    private function match ()
+    {
+
+        while ( true ) {
+            $this->turnStart();
+            for ( $i = 0; $i < $this->numberOfAllPlayers(); $i++ ) {
+                $this->turn_player = $i;
+                $this->eachPlayerMove();
             }
-            
-            $this->turn++;
+            $this->turnEnd();
         }
     }
 
-    public function progress( $player )
+    private function turnStart ()
     {
-        $step = mt_rand( $this->dice->min, $this->dice->max);
-        $player->place += $step;
-        echo $step . "マス進みました";
+        $this->turn++;
+        $this->view->append( "title", $this->turn . "ターン目です" );
     }
-    
-    public function event( $player, $board, $all_players )
+
+    private function eachPlayerMove ()
     {
-        switch ( $board->map[$player->place] ) {
-            case "reprogress":
-                $this->progress( $player );
-		break;
-            case "goadvance01":
-                new Goadvance01( $player );
-		break;
-            case "goadvance02":
-                new Goadvance02( $player );
-		break;
-            case "goadvance03":
-                new Goadvance03( $player );
-                break;
-            case "goback01":
-                new Goback01( $player );
-                break;
-            case "goback02":
-                new Goback02( $player );
-                break;
-            case "goback03":
-                new Goback03( $player );
-                break;
-            case "gostart":
-                new Gostart( $player );
-                break;
-            case "rest":
-                new Rest( $player );
-                break;
-            case "replace":
-                new Replace( $player, $all_players );
-                break;
-            default:
-                break;
+        $this->view->append( "title", $this->getMovingPlayer()->getName() . "の番です" );
+
+        $this->getMovingPlayer()->beforeRollDice( $this );
+
+        $this->getMovingPlayer()->rollDice( $this );
+        $this->checkAllPlayerStayIfCheckIn();
+
+        $this->event_type->player( $this );
+        $this->checkAllPlayerStayIfCheckIn();
+
+        $this->view->append( "title", $this->getMovingPlayer()->getPlace() . "マス目にいます" );
+
+        $this->checkPlayerGoalOrNot();
+    }
+
+    private function checkAllPlayerStayIfCheckIn ()
+    {
+        for ( $i = 0; $i < $this->numberOfAllPlayers(); $i++ ) {
+            $this->player[$i]->stayIfCheckIn( $this );
         }
     }
- 
-    public function end( $name )
+
+    private function turnEnd ()
     {
-        echo $name . "のかち!" . PHP_EOL;
+        $this->view->append( "title", "ターン終わり" );
+
+        $this->event_type->turnEnd( $this );
+        $this->checkAllPlayerStayIfCheckIn();
+    }
+
+    private function checkPlayerGoalOrNot ()
+    {
+        if ( $this->getMovingPlayer()->checkGoalOrNot( $this ) ) {
+            $this->goalAndEnd( $this->getMovingPlayer() );
+        }
+    }
+
+    private function goalAndEnd ( $goal_player )
+    {
+        $this->view->append( "text", $goal_player->getName() . "のかち!" );
+        $this->showGameHtml();
         exit;
+    }
+
+    private function showGameHtml ()
+    {
+        $this->view->html()->show( $this );
+    }
+
+    public function getMovingPlayer ()
+    {
+        return $this->player[$this->turn_player];
+    }
+
+    public function rollAllDice ()
+    {
+        $sum = 0;
+        for ( $i = 0; $i < count( $this->dice ); $i++ ) {
+            $roll_result = $this->dice[$i]->roll( $this );
+            $sum += $roll_result;
+        }
+        return $sum;
+    }
+
+    public function numberOfAllPlayers ()
+    {
+        return count( $this->player );
+    }
+
+    public function getAllPlayerPlace ()
+    {
+        $player_place = [];
+        for ( $i = 0; $i < $this->numberOfAllPlayers(); $i++ ) {
+            $player_place[] += $this->player[$i]->getPlace();
+        }
+        return $player_place;
     }
 }
